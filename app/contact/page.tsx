@@ -31,7 +31,7 @@ export default function ContactPage() {
                 <MapPin className="w-6 h-6 text-primary" />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">Location</h3>
-              <p className="text-sm text-muted-foreground">Thissamaharama, Southern Province, Sri Lanka</p>
+              <p className="text-sm text-muted-foreground">Beralihela Road , Tissamaharama, Sri Lanka</p>
             </div>
 
             {/* Phone */}
@@ -41,8 +41,8 @@ export default function ContactPage() {
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">Phone</h3>
               <p className="text-sm text-muted-foreground">
-                <a href="tel:+94" className="hover:text-primary transition-colors">
-                  +94 (0)
+                <a href="tel:+94704488844" className="hover:text-primary transition-colors">
+                  +94 70 448 8844
                 </a>
               </p>
             </div>
@@ -54,8 +54,8 @@ export default function ContactPage() {
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">Email</h3>
               <p className="text-sm text-muted-foreground">
-                <a href="mailto:hello@siddhaka.com" className="hover:text-primary transition-colors">
-                  hello@siddhaka.com
+                <a href="mailto:siddhakaayurveda@gmail.com" className="hover:text-primary transition-colors">
+                  siddhakaayurveda@gmail.com
                 </a>
               </p>
             </div>
@@ -172,14 +172,19 @@ export default function ContactPage() {
       <section className="py-16 md:py-24 bg-card">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">Visit Us</h2>
-          <div className="bg-muted rounded-xl overflow-hidden h-96 border border-border">
-            <div className="w-full h-full bg-gradient-to-br from-muted to-muted flex items-center justify-center">
-              <div className="text-center">
-                <MapPin className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                <p className="text-muted-foreground font-medium">Map location coming soon</p>
-                <p className="text-sm text-muted-foreground mt-2">Thissamaharama, Sri Lanka</p>
-              </div>
-            </div>
+          <div className="bg-muted rounded-xl overflow-hidden h-[450px] border border-border shadow-inner">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.660666286124!2d81.26498467483528!3d6.308234425627785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae69d003a6262ad%3A0x60a1428e9082b006!2sSiddhaka%20Ayurveda!5e0!3m2!1sen!2slk!4v1767428424727!5m2!1sen!2slk"
+              className="w-full h-full grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+          <div className="mt-6 text-center">
+            <p className="text-muted-foreground font-medium">Siddhaka Ayurveda</p>
+            <p className="text-sm text-muted-foreground mt-1">Beralihela Road, Tissamaharama, Sri Lanka</p>
           </div>
         </div>
       </section>
