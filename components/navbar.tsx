@@ -5,12 +5,13 @@ import { useState, useEffect } from "react"
 import { Menu, X } from "lucide-react"
 import Image from "next/image"
 import { useAuth } from "./auth-context"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import { BookingModal } from "./booking-modal"
 
 export default function Navbar() {
   const { patient, isAdmin, logout } = useAuth()
   const router = useRouter()
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [isAuthOpen, setIsAuthOpen] = useState(false)
@@ -59,15 +60,19 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex gap-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm text-foreground hover:text-primary transition-colors font-medium"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const isActive = pathname === item.href
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`text-sm transition-colors font-medium ${isActive ? "text-primary" : "text-foreground hover:text-primary"
+                    }`}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
           </div>
 
           <div className="hidden md:flex gap-3 items-center">
@@ -118,16 +123,22 @@ export default function Navbar() {
         {isOpen && (
           <div className="md:hidden pb-4 border-t border-border">
             <div className="flex flex-col gap-3 pt-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="px-4 py-2 text-foreground hover:text-primary hover:bg-muted rounded transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {navItems.map((item) => {
+                const isActive = pathname === item.href
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`px-4 py-2 rounded transition-colors ${isActive
+                      ? "text-primary bg-primary/10 font-medium"
+                      : "text-foreground hover:text-primary hover:bg-muted"
+                      }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              })}
               {!isAdmin && !patient ? (
                 <button
                   onClick={() => {

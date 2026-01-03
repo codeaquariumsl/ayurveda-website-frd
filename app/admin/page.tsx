@@ -7,9 +7,11 @@ import { useAuth } from "@/components/auth-context"
 import { Eye, EyeOff, LogOut, X, Calendar } from "lucide-react"
 import { ProductManagement } from "@/components/product-management"
 import { PackageManagement } from "@/components/package-management"
+import { useToast } from "@/hooks/use-toast"
 
 export default function AdminPage() {
   const { isAdmin, logout, bookings, updateBooking, login } = useAuth()
+  const { toast } = useToast()
   const [adminEmail, setAdminEmail] = useState("")
   const [adminPassword, setAdminPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
@@ -18,19 +20,47 @@ export default function AdminPage() {
   const [showRescheduleModal, setShowRescheduleModal] = useState(false)
   const [rescheduleData, setRescheduleData] = useState({ date: "", timeSlot: "" })
 
+  const [bookingFilter, setBookingFilter] = useState({
+    status: "all",
+    search: "",
+    date: "",
+  })
+
+  const filteredBookings = bookings?.filter((booking) => {
+    const matchesStatus = bookingFilter.status === "all" || booking.status === bookingFilter.status
+    const matchesSearch =
+      booking.patientName?.toLowerCase().includes(bookingFilter.search.toLowerCase()) ||
+      booking.packageName?.toLowerCase().includes(bookingFilter.search.toLowerCase()) ||
+      booking.notes?.toLowerCase().includes(bookingFilter.search.toLowerCase())
+    const matchesDate = !bookingFilter.date || booking.date === bookingFilter.date
+
+    return matchesStatus && matchesSearch && matchesDate
+  })
+
   const handleAdminLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
       await login(adminEmail, adminPassword)
+      toast({
+        title: "Login Successful",
+        description: "Welcome back, Admin",
+      })
     } catch (err: any) {
-      alert(err.message || "Incorrect admin credentials")
+      toast({
+        variant: "destructive",
+        title: "Login Failed",
+        description: err.message || "Incorrect admin credentials",
+      })
     }
   }
 
   const handleCancelBooking = (bookingId: string) => {
     if (window.confirm("Are you sure you want to cancel this booking?")) {
       updateBooking(bookingId, { status: "cancelled" })
-      alert("Booking cancelled successfully")
+      toast({
+        title: "Booking Cancelled",
+        description: "The booking has been successfully cancelled.",
+      })
       setSelectedBooking(null)
     }
   }
@@ -40,12 +70,19 @@ export default function AdminPage() {
     if (selectedBooking) {
       setSelectedBooking({ ...selectedBooking, status: newStatus })
     }
-    alert(`Booking status updated to ${newStatus}`)
+    toast({
+      title: "Status Updated",
+      description: `Booking status updated to ${newStatus}`,
+    })
   }
 
   const handleRescheduleBooking = (bookingId: string) => {
     if (!rescheduleData.date) {
-      alert("Please select a date")
+      toast({
+        variant: "destructive",
+        title: "Date Required",
+        description: "Please select a date",
+      })
       return
     }
     updateBooking(bookingId, {
@@ -53,7 +90,10 @@ export default function AdminPage() {
       timeSlot: rescheduleData.timeSlot || bookings.find((b) => b.id === bookingId)?.timeSlot,
       status: "rescheduled",
     })
-    alert("Booking rescheduled successfully")
+    toast({
+      title: "Booking Rescheduled",
+      description: "The booking has been successfully rescheduled.",
+    })
     setShowRescheduleModal(false)
     setRescheduleData({ date: "", timeSlot: "" })
   }
@@ -116,15 +156,6 @@ export default function AdminPage() {
       <div className="bg-primary text-primary-foreground p-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-          {/* <button
-            onClick={() => {
-              logout()
-            }}
-            className="flex items-center gap-2 px-4 py-2 bg-primary-foreground text-primary rounded hover:opacity-90 transition-opacity"
-          >
-            <LogOut size={18} />
-            Logout
-          </button> */}
         </div>
       </div>
 
@@ -155,16 +186,59 @@ export default function AdminPage() {
       <div className="max-w-7xl mx-auto p-6">
         {/* Bookings Section */}
         {activeTab === "bookings" && (
-          <div>
-            <h2 className="text-2xl font-bold text-foreground mb-6">Patient Bookings</h2>
-            {bookings && bookings.length > 0 ? (
+          <div className="space-y-6">
+            <div className="flex flex-col md:flex-row md:items-end gap-4 bg-card p-4 rounded-lg border border-border">
+              <div className="flex-1">
+                <label className="block text-sm font-semibold text-foreground mb-2">Search Patient / Package</label>
+                <input
+                  type="text"
+                  value={bookingFilter.search}
+                  onChange={(e) => setBookingFilter({ ...bookingFilter, search: e.target.value })}
+                  className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Search name, package..."
+                />
+              </div>
+              <div className="w-full md:w-48">
+                <label className="block text-sm font-semibold text-foreground mb-2">Status</label>
+                <select
+                  value={bookingFilter.status}
+                  onChange={(e) => setBookingFilter({ ...bookingFilter, status: e.target.value })}
+                  className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <option value="all">All Status</option>
+                  <option value="pending">Pending</option>
+                  <option value="confirmed">Confirmed</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                  <option value="rescheduled">Rescheduled</option>
+                </select>
+              </div>
+              <div className="w-full md:w-48">
+                <label className="block text-sm font-semibold text-foreground mb-2">Date</label>
+                <input
+                  type="date"
+                  value={bookingFilter.date}
+                  onChange={(e) => setBookingFilter({ ...bookingFilter, date: e.target.value })}
+                  className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              <button
+                onClick={() => setBookingFilter({ status: "all", search: "", date: "" })}
+                className="px-4 py-2 bg-secondary text-secondary-foreground rounded-lg text-sm font-medium hover:opacity-90"
+              >
+                Reset
+              </button>
+            </div>
+
+            <h2 className="text-2xl font-bold text-foreground">Patient Bookings ({filteredBookings.length})</h2>
+            {filteredBookings.length > 0 ? (
               <div className="space-y-4">
-                {bookings.map((booking: any, idx: number) => (
+                {filteredBookings.map((booking: any, idx: number) => (
                   <div
                     key={idx}
                     className="bg-card rounded-lg border border-border p-5 hover:shadow-md transition-shadow"
                   >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                       <div>
                         <p className="text-sm text-muted-foreground">Patient Name</p>
                         <p className="font-semibold text-foreground text-lg">{booking.patientName}</p>
@@ -221,8 +295,8 @@ export default function AdminPage() {
                 ))}
               </div>
             ) : (
-              <div className="bg-card rounded-lg border border-border p-8 text-center">
-                <p className="text-muted-foreground">No bookings yet</p>
+              <div className="bg-card rounded-lg border border-border p-8 text-center text-muted-foreground">
+                No bookings found matching your filters.
               </div>
             )}
           </div>
@@ -254,8 +328,9 @@ export default function AdminPage() {
                           new Date().getMonth(),
                           i - new Date(new Date().getFullYear(), new Date().getMonth(), 1).getDay() + 1,
                         )
+                        const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`
                         const isCurrentMonth = date.getMonth() === new Date().getMonth()
-                        const bookingsOnDate = bookings.filter((b) => b.date === date.toISOString().split("T")[0])
+                        const bookingsOnDate = bookings.filter((b) => b.date === formattedDate)
                         return (
                           <div
                             key={i}
@@ -292,12 +367,36 @@ export default function AdminPage() {
                       })
                       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
                       .map((booking: any, idx: number) => (
-                        <div key={idx} className="bg-background rounded p-3 text-sm border border-border">
-                          <p className="font-semibold text-foreground">{booking.patientName}</p>
+                        <div
+                          key={idx}
+                          className={`bg-background rounded p-3 text-sm border-l-4 ${booking.status === "confirmed"
+                            ? "border-green-500"
+                            : booking.status === "pending"
+                              ? "border-yellow-500"
+                              : booking.status === "completed"
+                                ? "border-blue-500"
+                                : "border-purple-500"
+                            } border-t border-r border-b border-border shadow-sm`}
+                        >
+                          <div className="flex justify-between items-start mb-1">
+                            <p className="font-semibold text-foreground">{booking.patientName}</p>
+                            <span
+                              className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ${booking.status === "confirmed"
+                                ? "bg-green-100 text-green-700"
+                                : booking.status === "pending"
+                                  ? "bg-yellow-100 text-yellow-700"
+                                  : booking.status === "completed"
+                                    ? "bg-blue-100 text-blue-700"
+                                    : "bg-purple-100 text-purple-700"
+                                }`}
+                            >
+                              {booking.status}
+                            </span>
+                          </div>
                           <p className="text-muted-foreground text-xs">
-                            {booking.date} {booking.timeSlot}
+                            {booking.date} | {booking.timeSlot}
                           </p>
-                          <p className="text-muted-foreground text-xs">{booking.packageName}</p>
+                          <p className="text-primary text-xs font-medium mt-1">{booking.packageName}</p>
                         </div>
                       ))}
                     {bookings.filter((b) => {
@@ -399,7 +498,7 @@ export default function AdminPage() {
               <div>
                 <h3 className="font-bold text-foreground mb-3">Update Status</h3>
                 <div className="flex flex-wrap gap-2">
-                  {(["pending", "confirmed", "completed", "cancelled", "rescheduled"] as const).map((status) => (
+                  {(["pending", "confirmed", "completed", "cancelled"] as const).map((status) => (
                     <button
                       key={status}
                       onClick={() => handleUpdateStatus(selectedBooking._id || selectedBooking.id, status)}
@@ -425,12 +524,12 @@ export default function AdminPage() {
                       Reschedule
                     </button>
                   )}
-                  <button
+                  {/* <button
                     onClick={() => handleCancelBooking(selectedBooking.id)}
                     className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity"
                   >
                     Cancel Booking
-                  </button>
+                  </button> */}
                 </div>
               )}
             </div>
