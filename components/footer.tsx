@@ -118,7 +118,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                <a href="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   Blog
                 </a>
               </li>
@@ -159,10 +159,10 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-muted-foreground">© 2025 Siddhaka Ayurveda. All rights reserved.</p>
           <div className="flex gap-6">
-            <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">
+            <a href="/" className="text-xs text-muted-foreground hover:text-primary transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">
+            <a href="/" className="text-xs text-muted-foreground hover:text-primary transition-colors">
               Terms of Service
             </a>
             <a href="/contact" className="text-xs text-muted-foreground hover:text-primary transition-colors">

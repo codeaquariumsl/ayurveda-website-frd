@@ -13,7 +13,7 @@ export default function AdminPage() {
   const [adminEmail, setAdminEmail] = useState("")
   const [adminPassword, setAdminPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
-  const [activeTab, setActiveTab] = useState<"bookings" | "calendar" | "products" | "packages">("bookings")
+  const [activeTab, setActiveTab] = useState<"bookings" | "calendar" | "products" | "packages" | "treatments">("bookings")
   const [selectedBooking, setSelectedBooking] = useState<any>(null)
   const [showRescheduleModal, setShowRescheduleModal] = useState(false)
   const [rescheduleData, setRescheduleData] = useState({ date: "", timeSlot: "" })
@@ -131,7 +131,7 @@ export default function AdminPage() {
       {/* Navigation Tabs */}
       <div className="bg-card border-b border-border">
         <div className="max-w-7xl mx-auto flex">
-          {(["bookings", "calendar", "products", "packages"] as const).map((tab) => (
+          {(["bookings", "calendar", "products", "treatments", "packages"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -144,6 +144,7 @@ export default function AdminPage() {
               {tab === "bookings" && "Manage Bookings"}
               {tab === "calendar" && "Booking Calendar"}
               {tab === "products" && "Manage Products"}
+              {tab === "treatments" && "Manage Treatments"}
               {tab === "packages" && "Manage Packages"}
             </button>
           ))}
@@ -315,8 +316,18 @@ export default function AdminPage() {
         {/* Products Section */}
         {activeTab === "products" && <ProductManagement />}
 
-        {/* Packages Section */}
-        {activeTab === "packages" && <PackageManagement />}
+        {/* Treatments Section (Wellness Packages) */}
+        {activeTab === "treatments" && <PackageManagement filterCategory="wellness" title="Manage Treatments (Wellness Procedure)" />}
+
+        {/* Packages Section (Special/Signature Packages) */}
+        {activeTab === "packages" && (
+          <div className="space-y-12">
+            <PackageManagement filterCategory="special" title="Manage Special Packages" />
+            <div className="pt-8 border-t border-border">
+              <PackageManagement filterCategory="signature" title="Manage Signature Packages" />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Booking Details Modal */}
