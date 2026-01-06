@@ -16,15 +16,15 @@ export default function HeroSlider() {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
 
   const slides: SlideItem[] = [
+    // {
+    //   type: "image",
+    //   src: "/SlideImages/peaceful-ayurveda-spa-treatment-center.jpg",
+    //   title: "Welcome to Siddhaka Ayurveda",
+    //   subtitle: "Reconnect. Rejuvenate. Restore your natural balance.",
+    // },
     {
       type: "image",
-      src: "/peaceful-ayurveda-spa-treatment-center.jpg",
-      title: "Welcome to Siddhaka Ayurveda",
-      subtitle: "Reconnect. Rejuvenate. Restore your natural balance.",
-    },
-    {
-      type: "image",
-      src: "/001.JPG",
+      src: "/SlideImages/001.JPG",
       title: "Welcome to Siddhaka Ayurveda",
       subtitle: "Reconnect. Rejuvenate. Restore your natural balance.",
     },
@@ -36,7 +36,7 @@ export default function HeroSlider() {
     // },
     {
       type: "image",
-      src: "/003.JPG",
+      src: "/SlideImages/003.JPG",
       title: "Authentic Ayurvedic Healing",
       subtitle: "Traditional treatments for modern wellness",
     },
@@ -46,24 +46,24 @@ export default function HeroSlider() {
     //   title: "Experience Ayurveda",
     //   subtitle: "Watch how our treatments transform lives",
     // },
+    // {
+    //   type: "image",
+    //   src: "/SlideImages/006.JPG",
+    //   title: "Welcome to Siddhaka Ayurveda",
+    //   subtitle: "Reconnect. Rejuvenate. Restore your natural balance.",
+    // },
     {
       type: "image",
-      src: "006.JPG",
-      title: "Welcome to Siddhaka Ayurveda",
-      subtitle: "Reconnect. Rejuvenate. Restore your natural balance.",
-    },
-    {
-      type: "image",
-      src: "/004.JPG",
+      src: "/SlideImages/004.JPG",
       title: "Natural Healing Ingredients",
       subtitle: "Premium quality herbs and oils",
     },
-    {
-      type: "image",
-      src: "/natural-herbal-oils-ayurvedic-products.jpg",
-      title: "Natural Healing Ingredients",
-      subtitle: "Premium quality herbs and oils",
-    },
+    // {
+    //   type: "image",
+    //   src: "/SlideImages/natural-herbal-oils-ayurvedic-products.jpg",
+    //   title: "Natural Healing Ingredients",
+    //   subtitle: "Premium quality herbs and oils",
+    // },
   ]
 
   useEffect(() => {

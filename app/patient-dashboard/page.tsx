@@ -4,10 +4,12 @@ import { useAuth } from "@/components/auth-context"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Calendar, AlertCircle, CheckCircle, XCircle } from "lucide-react"
+import { useToast } from "@/components/ui/use-toast"
 
 export default function PatientDashboard() {
   const { patient, bookings, logout, cancelBooking } = useAuth()
   const router = useRouter()
+  const { toast } = useToast()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -59,9 +61,16 @@ export default function PatientDashboard() {
     if (window.confirm("Are you sure you want to cancel this booking?")) {
       try {
         await cancelBooking(id)
-        alert("Booking cancelled")
+        toast({
+          title: "Booking Cancelled",
+          description: "Your booking has been successfully cancelled.",
+        })
       } catch (err) {
-        alert("Failed to cancel booking")
+        toast({
+          title: "Error",
+          description: "Failed to cancel booking. Please try again.",
+          variant: "destructive",
+        })
       }
     }
   }
@@ -150,7 +159,7 @@ export default function PatientDashboard() {
                       </div>
                     )}
                   </div>
-                  {booking.status !== "completed" && booking.status !== "cancelled" && (
+                  {booking.status !== "confirmed" && booking.status !== "completed" && booking.status !== "cancelled" && (
                     <button
                       onClick={() => handleCancel((booking._id || booking.id) as string)}
                       className="w-full py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors font-medium text-sm"

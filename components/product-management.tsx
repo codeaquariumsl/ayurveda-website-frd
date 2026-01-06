@@ -4,9 +4,11 @@ import type React from "react"
 import { useState } from "react"
 import { useAuth, type Product } from "@/components/auth-context"
 import { Trash2, Edit2, Plus } from "lucide-react"
+import { useToast } from "@/components/ui/use-toast"
 
 export function ProductManagement() {
   const { products, addProduct, updateProduct, deleteProduct } = useAuth()
+  const { toast } = useToast()
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [formData, setFormData] = useState<Omit<Product, "id" | "createdAt" | "_id">>({
@@ -74,7 +76,11 @@ export function ProductManagement() {
       })
       setShowForm(false)
     } catch (err) {
-      alert("Failed to save product")
+      toast({
+        title: "Error",
+        description: "Failed to save product.",
+        variant: "destructive",
+      })
     }
   }
 

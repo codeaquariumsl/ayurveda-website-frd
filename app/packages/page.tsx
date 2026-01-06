@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Clock, Check } from "lucide-react"
 import { BookingModal } from "@/components/booking-modal"
 import { WellnessPackageCard } from "@/components/wellness-package-card"
+import { TreatmentTabs } from "@/components/treatment-tabs"
 import { useAuth, ServicePackage } from "@/components/auth-context"
 
 function SignatureCard({ pkg }: { pkg: any }) {
@@ -86,30 +87,39 @@ export default function PackagesPage() {
         <div className="max-w-6xl mx-auto px-3 sm:px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Menu for Wellness</h2>
 
-          {categories.map((cat) => {
-            const catPackages = wellnessPackages.filter(p => p.subcategory === cat.sub)
-            if (catPackages.length === 0) return null
-
-            return (
-              <div key={cat.label} className="mb-8">
-                <h3 className="text-2xl font-bold text-foreground mb-4">{cat.label}</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {catPackages.map((pkg) => (
-                    <WellnessPackageCard
-                      key={pkg._id || pkg.id}
-                      treatment={{
-                        title: pkg.name,
-                        duration: `${pkg.duration} minutes`,
-                        description: pkg.description,
-                        image: pkg.image
-                      }}
-                      onBookClick={() => setSelectedPackageInfo({ name: pkg.name, id: (pkg._id || pkg.id) as string })}
-                    />
-                  ))}
-                </div>
-              </div>
-            )
-          })}
+          <TreatmentTabs
+            tabs={categories.map((cat) => ({
+              id: cat.sub,
+              name: cat.label,
+              treatments: wellnessPackages
+                .filter((p) => p.subcategory === cat.sub)
+                .map((pkg) => ({
+                  title: pkg.name,
+                  duration: `${pkg.duration} minutes`,
+                  description: pkg.description,
+                  benefits: pkg.includes,
+                  image: pkg.image || "",
+                  // Pass original pkg data if needed by custom renderer or keep it minimal
+                  _original: pkg,
+                })),
+            }))}
+            renderItem={(treatment: any) => (
+              <WellnessPackageCard
+                treatment={{
+                  title: treatment.title,
+                  duration: treatment.duration,
+                  description: treatment.description,
+                  image: treatment.image,
+                }}
+                onBookClick={() =>
+                  setSelectedPackageInfo({
+                    name: treatment.title,
+                    id: treatment._original._id || treatment._original.id,
+                  })
+                }
+              />
+            )}
+          />
         </div>
       </section>
 

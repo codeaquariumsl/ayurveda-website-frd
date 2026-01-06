@@ -4,6 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import { useAuth, type ServicePackage } from "@/components/auth-context"
 import { Trash2, Edit2, Plus, Check } from "lucide-react"
+import { useToast } from "@/components/ui/use-toast"
 
 interface PackageManagementProps {
   filterCategory?: "wellness" | "special" | "signature"
@@ -12,6 +13,7 @@ interface PackageManagementProps {
 
 export function PackageManagement({ filterCategory, title = "Manage Packages" }: PackageManagementProps) {
   const { packages, addPackage, updatePackage, deletePackage } = useAuth()
+  const { toast } = useToast()
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
 
@@ -54,7 +56,11 @@ export function PackageManagement({ filterCategory, title = "Manage Packages" }:
       setFormData(initialFormState)
       setShowForm(false)
     } catch (err) {
-      alert("Failed to save item")
+      toast({
+        title: "Error",
+        description: "Failed to save item.",
+        variant: "destructive",
+      })
     }
   }
 

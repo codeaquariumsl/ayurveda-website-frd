@@ -3,6 +3,7 @@
 import type React from "react"
 import { useState, useEffect } from "react"
 import { X } from "lucide-react"
+import { useToast } from "@/components/ui/use-toast"
 import { useAuth } from "./auth-context"
 
 interface BookingModalProps {
@@ -14,6 +15,7 @@ interface BookingModalProps {
 
 export function BookingModal({ isOpen, onClose, packageName, packageId }: BookingModalProps) {
   const { patient, addBooking, register, login, packages, getAvailableTimeSlots } = useAuth()
+  const { toast } = useToast()
   const [mode, setMode] = useState<"login" | "register" | "booking">(patient ? "booking" : "login")
   const [availableTimeSlots, setAvailableTimeSlots] = useState<string[]>([])
 
@@ -100,7 +102,10 @@ export function BookingModal({ isOpen, onClose, packageName, packageId }: Bookin
         },
       })
 
-      alert("Booking confirmed! You can view it in your patient dashboard.")
+      toast({
+        title: "Booking Confirmed",
+        description: "You can view it in your patient dashboard.",
+      })
       setBookingForm({ date: "", timeSlot: "", notes: "" })
       onClose()
     } catch (err: any) {
