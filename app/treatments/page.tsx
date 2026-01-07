@@ -53,18 +53,19 @@ export default function TreatmentsPage() {
           ],
         },
         {
-          title: "Shiro Abhyanga",
+          title: "Shiro Abhyanga (Head Massage)",
           description:
             "A therapeutic head massage with the applying of medicated oil on the scalp focusing on marma points of the forehead, head, neck and shoulders to soothe, comfort and calm body, mind and soul.",
           image: "/ayurvedic-scalp-massage-therapy.jpg", // Added image
           benefits: [
-            "Promotes total relaxation and deep restful sleep",
-            "Releases tension",
-            "Stimulates mental function",
-            "Relieves eye strain",
-            "Good for migraine and stiff necks/shoulders",
-            "Prevents hair falling",
-            "Cures dandruff and enhances hair growth",
+            "Relieves eye strain and headaches"
+            // "Promotes total relaxation and deep restful sleep",
+            // "Releases tension",
+            // "Stimulates mental function",
+            // "Relieves eye strain",
+            // "Good for migraine and stiff necks/shoulders",
+            // "Prevents hair falling",
+            // "Cures dandruff and enhances hair growth",
           ],
         },
         {
@@ -88,7 +89,7 @@ export default function TreatmentsPage() {
       name: "Body and Skin Care Treatments",
       treatments: [
         {
-          title: "Shareera Abhyanga",
+          title: "Shareera Abhyanga (Body Oil Massage)",
           duration: "60 minutes",
           description: "Body massage with oil made specially for each dosha including face and foot massage.",
           image: "/Treatment/Shareera Abhyanga.JPG", // Added image
@@ -99,20 +100,21 @@ export default function TreatmentsPage() {
             "Eliminates toxins",
             "Rejuvenates the entire body",
             "Good for paralysis patients",
-            "Enhances power of limbs",
+            "Good for paralysis patients for enhances power of limbs",
           ],
         },
         {
-          title: "Shareera Abhyanga with Udvarthana",
+          title: "Shareera Abhyanga with Udvarthana (Powder massage)",
           duration: "90 minutes",
           description:
             "An intensive toning and lightening treatment that helps to reduce sun burns and minimize discolourations. This is followed by herbal Ayurveda scrub and full body massage.",
           image: "/Treatment/Ayurvedic Body Scrub Treatment.JPG", // Added image
           benefits: [
-            "Reduces sun burns",
-            "Minimizes discolourations",
-            "Promotes relax and total well-being",
-            "Body toning and lightening",
+            "Supports skin toning and firmness",
+            "Helps soothe and calm heat - stressed skin after sun exposure",
+            "Promotes a more even skin tone",
+            "Reduces appearance of discolorations",
+            "Enhances circulation",
           ],
         },
         {
@@ -120,7 +122,15 @@ export default function TreatmentsPage() {
           description:
             "Induction of perspiration by the unique procedure of pouring warm medicated oil on the body. The procedure may be performed to a portion of the body or whole body.",
           image: "/Treatment/Parisheka.JPG", // Added image
-          benefits: ["Produces therapeutic sweating", "Detoxifies the body", "Balances doshas", "Improves circulation"],
+          benefits: [
+            "Deep relaxation & stress relief",
+            "Nourishes skin & tissues",
+            "Reduces dryness & stiffness",
+            "Enhances blood flow and lymphatic drainage Supporting detoxification",
+            "Relieves pain & inflammation",
+            "Promotes better sleep",
+            "Balances doshas",
+          ],
         },
         {
           title: "Annalepa",

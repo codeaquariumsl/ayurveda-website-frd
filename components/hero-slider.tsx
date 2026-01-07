@@ -16,30 +16,53 @@ export default function HeroSlider() {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
 
   const slides: SlideItem[] = [
-    // {
-    //   type: "image",
-    //   src: "/SlideImages/peaceful-ayurveda-spa-treatment-center.jpg",
-    //   title: "Welcome to Siddhaka Ayurveda",
-    //   subtitle: "Reconnect. Rejuvenate. Restore your natural balance.",
-    // },
     {
       type: "image",
       src: "/SlideImages/001.JPG",
       title: "Welcome to Siddhaka Ayurveda",
       subtitle: "Reconnect. Rejuvenate. Restore your natural balance.",
     },
-    // {
-    //   type: "image",
-    //   src: "/ayurvedic-massage-therapy-healing-hands.jpg",
-    //   title: "Authentic Ayurvedic Healing",
-    //   subtitle: "Traditional treatments for modern wellness",
-    // },
     {
       type: "image",
       src: "/SlideImages/003.JPG",
       title: "Authentic Ayurvedic Healing",
       subtitle: "Traditional treatments for modern wellness",
     },
+    {
+      type: "image",
+      src: "/SlideImages/004.JPG",
+      title: "Natural Healing Ingredients",
+      subtitle: "Premium quality herbs and oils",
+    }, {
+      type: "image",
+      src: "/SlideImages/002.jpeg",
+      title: "A gentle welcome to begin your healing journey",
+      subtitle: "Reconnect. Rejuvenate. Restore your natural balance.",
+    },
+    {
+      type: "image",
+      src: "/SlideImages/005.jpeg",
+      title: "Natural oils and treatment essentials ready for healing",
+      subtitle: "Premium quality herbs and oils",
+    },
+    {
+      type: "image",
+      src: "/SlideImages/006.jpeg",
+      title: "Personalized Ayurvedic treatment in a calm healing environment",
+      subtitle: "Traditional treatments for modern wellness",
+    },
+    // {
+    //   type: "image",
+    //   src: "/SlideImages/peaceful-ayurveda-spa-treatment-center.jpg",
+    //   title: "Welcome to Siddhaka Ayurveda",
+    //   subtitle: "Reconnect. Rejuvenate. Restore your natural balance.",
+    // },
+    // {
+    //   type: "image",
+    //   src: "/ayurvedic-massage-therapy-healing-hands.jpg",
+    //   title: "Authentic Ayurvedic Healing",
+    //   subtitle: "Traditional treatments for modern wellness",
+    // },
     // {
     //   type: "video",
     //   src: "https://www.youtube.com/embed/dQw4w9WgXcQ",
@@ -52,12 +75,6 @@ export default function HeroSlider() {
     //   title: "Welcome to Siddhaka Ayurveda",
     //   subtitle: "Reconnect. Rejuvenate. Restore your natural balance.",
     // },
-    {
-      type: "image",
-      src: "/SlideImages/004.JPG",
-      title: "Natural Healing Ingredients",
-      subtitle: "Premium quality herbs and oils",
-    },
     // {
     //   type: "image",
     //   src: "/SlideImages/natural-herbal-oils-ayurvedic-products.jpg",
@@ -70,7 +87,7 @@ export default function HeroSlider() {
     if (!isAutoPlay || selectedVideo) return
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length)
-    }, 5000)
+    }, 6000)
     return () => clearInterval(interval)
   }, [isAutoPlay, slides.length, selectedVideo])
 
