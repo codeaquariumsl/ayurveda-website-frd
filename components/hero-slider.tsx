@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import { WaterDrops } from "./ui/water-drops"
 
 interface SlideItem {
   type: "image" | "video"
@@ -112,37 +113,39 @@ export default function HeroSlider() {
   return (
     <div className="relative w-full bg-background overflow-hidden">
       {/* Main Slider Container */}
-      <div className="relative w-full h-screen max-h-[700px] flex items-center justify-center bg-card">
+      <div className="relative w-full h-screen max-h-[760px] flex items-center justify-center bg-card">
         {/* Slides */}
         {slides.map((slide, idx) => (
           <div
             key={idx}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === currentSlide ? "opacity-100" : "opacity-0"
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === currentSlide ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
               }`}
           >
-            {slide.type === "image" ? (
-              <>
-                <img src={slide.src || "/placeholder.svg"} alt={slide.title} className="w-full h-full object-cover" />
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black/30" />
-              </>
-            ) : (
-              <>
-                <div className="w-full h-full bg-black flex items-center justify-center relative">
-                  <iframe
-                    src={slide.src}
-                    className="w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
-              </>
-            )}
+            <WaterDrops>
+              {slide.type === "image" ? (
+                <>
+                  <img src={slide.src || "/placeholder.svg"} alt={slide.title} className="w-full h-full object-cover" />
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-black/30" />
+                </>
+              ) : (
+                <>
+                  <div className="w-full h-full bg-black flex items-center justify-center relative">
+                    <iframe
+                      src={slide.src}
+                      className="w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                </>
+              )}
+            </WaterDrops>
 
             {/* Content Overlay */}
             {slide.title && !isVideo && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 text-balance">
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pointer-events-none">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 text-balance pointer-events-auto">
                   {slide.title}
                 </h1>
                 {slide.subtitle && (

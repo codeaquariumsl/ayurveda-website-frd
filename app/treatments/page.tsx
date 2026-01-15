@@ -23,7 +23,6 @@ export default function TreatmentsPage() {
   //     name: cat.name,
   //     treatments: catPackages.map(pkg => ({
   //       title: pkg.name,
-  //       duration: `${pkg.duration} minutes`,
   //       description: pkg.description,
   //       benefits: pkg.benefits ? [pkg.benefits] : pkg.includes,
   //       image: pkg.image || "/ayurvedic-body-massage-therapy.jpg"
@@ -38,7 +37,6 @@ export default function TreatmentsPage() {
       treatments: [
         {
           title: "Shiro Dhara",
-          duration: "45 minutes",
           description:
             "A procedure consisting of continuous pouring of medicated oil onto the forehead, focusing on the powerful 'third eye' of the mind or 'Sthapani Marma' to effectively purify and relax your body, mind and soul.",
           image: "/Treatment/Shiro Dhara.JPG", // Added image
@@ -90,7 +88,6 @@ export default function TreatmentsPage() {
       treatments: [
         {
           title: "Shareera Abhyanga (Body Oil Massage)",
-          duration: "60 minutes",
           description: "Body massage with oil made specially for each dosha including face and foot massage.",
           image: "/Treatment/Shareera Abhyanga.JPG", // Added image
           benefits: [
@@ -104,8 +101,7 @@ export default function TreatmentsPage() {
           ],
         },
         {
-          title: "Shareera Abhyanga with Udvarthana (Powder massage)",
-          duration: "90 minutes",
+          title: "Shareera Abhyanga with Udvarthana (Powder Massage)",
           description:
             "An intensive toning and lightening treatment that helps to reduce sun burns and minimize discolourations. This is followed by herbal Ayurveda scrub and full body massage.",
           image: "/Treatment/Ayurvedic Body Scrub Treatment.JPG", // Added image
@@ -134,7 +130,6 @@ export default function TreatmentsPage() {
         },
         {
           title: "Annalepa",
-          duration: "60-90 minutes",
           description:
             "The whole body or any part of the body is made to perspire by means of application of a kind of payasa or pudding, specially prepared with Navara variety of rice, milk and decoction of Bala roots.",
           image: "/ayurvedic-rice-milk-treatment.jpg", // Added image
@@ -147,7 +142,6 @@ export default function TreatmentsPage() {
         },
         {
           title: "Shashtika Shali Pinda Sweda",
-          duration: "60-90 minutes",
           description:
             "Nourishing and rejuvenating body massage done with bundles of rice cooked in milk and herbal decoction.",
           image: "/Treatment/Shashtikashli.JPG", // Added image
@@ -171,7 +165,6 @@ export default function TreatmentsPage() {
         },
         {
           title: "Nadi Sweda",
-          duration: "30 minutes",
           description:
             "A process by which the person is made to perspire using a tube and medicated steam passed on whole body or affected part.",
           image: "/Treatment/Nadi Sweda.JPG", // Added image
@@ -179,7 +172,6 @@ export default function TreatmentsPage() {
         },
         {
           title: "Vashpa Sweda",
-          duration: "30 minutes",
           description:
             "Apparatus used as sitting posture or lying posture is from shoulders to feet with herbal medicinal steam.",
           image: "/Treatment/Vashpa Sweda.JPG", // Added image
@@ -193,9 +185,8 @@ export default function TreatmentsPage() {
         },
         {
           title: "Avagaha Sweda",
-          duration: "30-45 minutes",
           description:
-            "A process by which the individual will be immersion of the decoction to produce fomentation to the body. Medicated oil is applied to the head and body in a tub.",
+            "A process by which the individual will be immersion of the decoction to produce fomentation to the body and lukewarm temperature is maintained in the tub. Before the treatment, medicated oil is applied to the head and body.",
           image: "/Treatment/Avagaha Sweda.JPG", // Added image
           benefits: [
             "Relaxes body and mind",
@@ -208,7 +199,6 @@ export default function TreatmentsPage() {
         },
         {
           title: "Mud Therapy",
-          duration: "45 minutes",
           description:
             "An ancient practice that uses mud mask to bring out your natural beauty by enhancing complexion and glow of the skin.",
           image: "/ayurvedic-mud-therapy-mask.jpg", // Added image
@@ -224,7 +214,6 @@ export default function TreatmentsPage() {
         },
         {
           title: "Kati Vasti",
-          duration: "30-45 minutes",
           description:
             "The most effective Ayurveda therapy for back pain. Warm medicated oil is retained in lower back area after making a rim with black gram dough around spine.",
           image: "/Treatment/Kati Wasthi.JPG", // Added image
@@ -239,7 +228,6 @@ export default function TreatmentsPage() {
         },
         {
           title: "Janu Vasti",
-          duration: "30-45 minutes",
           description:
             "A treatment in which medicated oils are poured and pooled for a fixed duration in a compartment constructed around the knee joint using wet flour of black gram.",
           image: "/ayurvedic-knee-joint-treatment.jpg", // Added image
@@ -260,58 +248,20 @@ export default function TreatmentsPage() {
       name: "Facial Care Treatments",
       treatments: [
         {
-          title: "Face Massage",
-          duration: "30 minutes",
+          title: "Nasal Inhalation",
           description:
-            "A rejuvenating and age minimizing Ayurveda face massage by applying medicated oil focusing on marma points of the face.",
+            "Inhalation is a soothing Ayurvedic Therapy used cleanse and rejuvenate the nasal passages, sinuses and respiratory system. It is part of facial care treatments for cleansing and rejuvenation. It involves the use of herbal steam or medicated smoke for therapeutic purposes.",
           image: "/Treatment/Face Massage.JPG", // Added image
           benefits: [
-            "Firms and smooths the skin",
-            "Nourishes and regenerates skin cells",
-            "Removes impurities and wrinkles",
-            "Reduces signs of aging",
+            "Relieves nasal congestion",
+            "Eases difficulty in breathing",
+            "Loosens thick mucus and phlegm",
+            "Helpful in sinusitis, cold, and cough",
+            "Reduces facial pressure",
+            "Gives soothing and calming effect",
+            "Improves sense of freshness and clarity",
           ],
-        },
-        {
-          title: "Facial Treatment",
-          duration: "60 minutes",
-          description:
-            "A unique soothing, balancing and healing facial treatment to help purify and clear out clogged pores while eliminating excess oil. Includes a herbal scrub, steam and facial massage followed by a mask.",
-          image: "/Treatment/Facial Treatment.JPG", // Added image
-          benefits: [
-            "Improves complexion",
-            "Removes sunburn",
-            "Reduces dark patches",
-            "Minimizes dryness",
-            "Deep purification with Ayurveda herbs",
-          ],
-        },
-        {
-          title: "Face Massage with Nasal Inhalation",
-          duration: "45 minutes",
-          description:
-            "Face massage combined with cleansing and rejuvenation of the nasal passages, sinuses and respiratory system by using medicated steam.",
-          image: "/ayurvedic-facial-massage.jpg", // Added image
-          benefits: [
-            "Cleanses and rejuvenates nasal passages",
-            "Clears sinuses",
-            "Improves respiratory system",
-            "Facial rejuvenation",
-          ],
-        },
-        {
-          title: "Akshi Tharpana",
-          duration: "30-45 minutes",
-          description:
-            "Akshi means eyes and tharpana means giving strength to the eyes. Medicated ghee is poured over the eyelids in an enclosure built around the eye out of wheat flour.",
-          image: "/ayurvedic-eye-treatment-therapy.jpg", // Added image
-          benefits: [
-            "Improves vision and clarity of mind",
-            "Specialized treatment for eye disorders",
-            "Preventive and curative therapy",
-            "Maintains normal healthy condition of eyes",
-          ],
-        },
+        }
       ],
     },
     {
@@ -319,26 +269,29 @@ export default function TreatmentsPage() {
       name: "Foot Care Treatments",
       treatments: [
         {
-          title: "Foot Massage",
-          duration: "30 minutes",
-          description: "Foot massage with medicated oil that stimulates the Marma and reflex points in the feet.",
+          title: "Pada Abhyanga (Foot Massage)",
+          description: "Foot massage with medicated oil and stimulates the Marma and reflex points in the feet. Foots are represent the whole body therefore treatment is benefits for all systems.",
           image: "/Treatment/Foot Massage (2).JPG", // Added image
           benefits: [
-            "Heals and revitalizes the body",
-            "Improves circulation in the entire body",
-            "Stimulates reflex and marma points",
+            "Reduces foot pain and burning sensation",
+            "Reduce muscular pain and stiffness",
+            "Induce sleep",
+            "Body relaxation and balance",
           ],
         },
         {
           title: "Relaxing Foot Treatment",
-          duration: "60 minutes",
           description:
-            "Commence with a relaxing herbal foot bath followed by herbal scrub, foot massage with stimulating Marma points and ends with foot mask and toning of foot.",
+            "This Foot Treatment is for relaxing and skin brightening experience. Commence with a relaxing herbal foot bath followed by herbal scrub, foot massage with stimulating Marma points and ends with foot mask and toning of foot.",
           image: "/Treatment/Relaxing foot tre.JPG", // Added image
           benefits: [
-            "Complete foot rejuvenation",
-            "Relaxation and therapeutic benefits",
-            "Improves foot health and circulation",
+            "Deeply relaxes the body and mind",
+            "Reduces stress, anxiety, and mental fatigue",
+            "Promotes better sleep",
+            "Activates vital energy points(marma)",
+            "Improves circulation in feet and lower limbs",
+            "Helps relieve tiredness and heaviness of legs",
+            "Supports overall energy balance in the body",
           ],
         },
       ],

@@ -64,8 +64,38 @@ export function BookingModal({ isOpen, onClose, packageName, packageId }: Bookin
     e.preventDefault()
     setError("")
 
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(registerForm.email)) {
+      setError("Please enter a valid email address")
+      return
+    }
+
+    // Phone validation
+    const cleanedPhone = registerForm.phone.replace(/[^\d+]/g, "")
+    const isSriLanka = registerForm.country.toLowerCase().includes("sri lanka") || registerForm.country.toLowerCase() === "sl"
+
+    if (isSriLanka) {
+      const slPhoneRegex = /^(?:\+94|94|0)?7\d{8}$/
+      if (!slPhoneRegex.test(cleanedPhone)) {
+        setError("Please enter a valid Sri Lankan phone number (e.g., 0771234567 or +94771234567)")
+        return
+      }
+    } else {
+      const generalPhoneRegex = /^\+?\d{7,15}$/
+      if (!generalPhoneRegex.test(cleanedPhone)) {
+        setError("Please enter a valid phone number with country code")
+        return
+      }
+    }
+
     if (registerForm.password !== registerForm.confirmPassword) {
       setError("Passwords do not match")
+      return
+    }
+
+    if (registerForm.password.length < 6) {
+      setError("Password must be at least 6 characters long")
       return
     }
 
@@ -225,14 +255,20 @@ export function BookingModal({ isOpen, onClose, packageName, packageId }: Bookin
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-foreground mb-1">Phone</label>
+                  <label className="block text-sm font-semibold text-foreground mb-1">
+                    Phone {registerForm.country.toLowerCase().includes("sri lanka") || registerForm.country.toLowerCase() === "sl" ? "(Sri Lanka)" : ""}
+                  </label>
                   <input
                     type="tel"
                     value={registerForm.phone}
                     onChange={(e) => setRegisterForm({ ...registerForm, phone: e.target.value })}
                     required
                     className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-sm"
-                    placeholder="+94 77 123 4567"
+                    placeholder={
+                      registerForm.country.toLowerCase().includes("sri lanka") || registerForm.country.toLowerCase() === "sl"
+                        ? "077 123 4567"
+                        : "+Country Code Number"
+                    }
                   />
                 </div>
               </div>
