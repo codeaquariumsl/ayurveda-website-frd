@@ -44,9 +44,21 @@ export default function Home() {
       <HeroSlider />
 
       {/* Welcome Section */}
-      <section className="relative bg-gradient-to-b from-secondary/10 to-background pt-16 pb-12 md:pt-20 md:pb-16">
-        <div className="max-w-6xl mx-auto px-3 sm:px-4">
-          <div className="max-w-full text-center">
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/006.JPG"
+            alt="Wellness Background"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/70 to-background" />
+        </div>
+
+        <div className="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 text-center">
+          <div className="max-w-4xl mx-auto">
             <Image
               src="/Siddhaka_ayurveda_Logo.png"
               alt="Siddhaka Ayurveda Logo"
@@ -57,7 +69,7 @@ export default function Home() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 text-balance">
               Welcome to Siddhaka Ayurveda
             </h1>
-            <p className="text-lg text-primary font-semibold mb-6 italic">
+            <p className="text-lg text-primary font-bold mb-6 italic tracking-wide">
               "Reconnect. Rejuvenate. Restore your natural balance."
             </p>
             <p className="text-lg text-muted-foreground text-balance leading-relaxed">

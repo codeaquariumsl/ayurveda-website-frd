@@ -31,7 +31,7 @@ export default function ContactPage() {
                 <MapPin className="w-6 h-6 text-primary" />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">Location</h3>
-              <p className="text-sm text-muted-foreground">Beralihela Road , Tissamaharama, Sri Lanka</p>
+              <p className="text-sm text-muted-foreground">Beralihela Road, Sandungama, Thissamaharama, Sri Lanka.</p>
             </div>
 
             {/* Phone */}
@@ -40,24 +40,33 @@ export default function ContactPage() {
                 <Phone className="w-6 h-6 text-primary" />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">Phone</h3>
-              <p className="text-sm text-muted-foreground">
-                <a href="tel:+94704488844" className="hover:text-primary transition-colors">
-                  +94 70 448 8844
+              <div className="text-sm text-muted-foreground space-y-1">
+                <a href="tel:+94773707808" className="block hover:text-primary transition-colors">
+                  +94 77 370 7808
                 </a>
-              </p>
+                <a href="tel:+94715545395" className="block hover:text-primary transition-colors">
+                  +94 71 554 5395
+                </a>
+                <a href="https://wa.me/94704488844" target="_blank" className="block hover:text-primary transition-colors">
+                  +94 70 448 8844 (Whatsapp)
+                </a>
+              </div>
             </div>
 
-            {/* Email */}
+            {/* Email & Website */}
             <div className="bg-card rounded-xl p-8 border border-border text-center">
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Mail className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">Email</h3>
-              <p className="text-sm text-muted-foreground">
-                <a href="mailto:siddhakaayurveda@gmail.com" className="hover:text-primary transition-colors">
+              <h3 className="text-lg font-semibold text-foreground mb-2">Email & Web</h3>
+              <div className="text-sm text-muted-foreground space-y-1">
+                <a href="mailto:siddhakaayurveda@gmail.com" className="block hover:text-primary transition-colors">
                   siddhakaayurveda@gmail.com
                 </a>
-              </p>
+                <a href="https://www.siddhakaayurveda.com" target="_blank" className="block hover:text-primary transition-colors font-medium">
+                  www.siddhakaayurveda.com
+                </a>
+              </div>
             </div>
 
             {/* Hours */}
@@ -184,7 +193,7 @@ export default function ContactPage() {
           </div>
           <div className="mt-6 text-center">
             <p className="text-muted-foreground font-medium">Siddhaka Ayurveda</p>
-            <p className="text-sm text-muted-foreground mt-1">Beralihela Road, Tissamaharama, Sri Lanka</p>
+            <p className="text-sm text-muted-foreground mt-1">Beralihela Road, Sandungama, Thissamaharama, Sri Lanka.</p>
           </div>
         </div>
       </section>

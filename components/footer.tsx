@@ -131,13 +131,21 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="flex gap-2 items-start">
                 <MapPin size={16} className="text-primary mt-0.5 flex-shrink-0" />
-                <p className="text-sm text-muted-foreground">Beralihela Road , Tissamaharama, Sri Lanka</p>
+                <p className="text-sm text-muted-foreground">Beralihela Road, Sandungama, Thissamaharama, Sri Lanka.</p>
               </div>
               <div className="flex gap-2 items-center">
                 <Phone size={16} className="text-primary flex-shrink-0" />
-                <a href="tel:+94704488844" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  +94 70 448 8844
-                </a>
+                <div className="flex flex-col">
+                  <a href="tel:+94773707808" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    +94 77 370 7808
+                  </a>
+                  <a href="tel:+94715545395" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    +94 71 554 5395
+                  </a>
+                  <a href="tel:+94704488844" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    +94 70 448 8844 (Whatsapp)
+                  </a>
+                </div>
               </div>
               <div className="flex gap-2 items-center">
                 <Mail size={16} className="text-primary flex-shrink-0" />

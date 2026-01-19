@@ -19,8 +19,14 @@ export default function HeroSlider() {
   const slides: SlideItem[] = [
     {
       type: "image",
-      src: "/SlideImages/001.JPG",
+      src: "/SlideImages/002.jpeg",
       title: "Welcome to Siddhaka Ayurveda",
+      subtitle: "Reconnect. Rejuvenate. Restore your natural balance.",
+    },
+    {
+      type: "image",
+      src: "/SlideImages/001.JPG",
+      title: "A gentle welcome to begin your healing journey",
       subtitle: "Reconnect. Rejuvenate. Restore your natural balance.",
     },
     {
@@ -34,11 +40,6 @@ export default function HeroSlider() {
       src: "/SlideImages/004.JPG",
       title: "Natural Healing Ingredients",
       subtitle: "Premium quality herbs and oils",
-    }, {
-      type: "image",
-      src: "/SlideImages/002.jpeg",
-      title: "A gentle welcome to begin your healing journey",
-      subtitle: "Reconnect. Rejuvenate. Restore your natural balance.",
     },
     {
       type: "image",
