@@ -2,9 +2,10 @@ import type { Metadata } from "next"
 import { CheckCircle } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "About Us - Siddhaka Ayurveda",
+  title: "About Dr. Nimeshika & Siddhaka Ayurveda",
   description:
-    "Learn about Siddhaka Ayurveda's vision, mission, and approach to holistic healing guided by Dr. Nimeshika Madithiyawala.",
+    "Learn about our mission to provide authentic Ayurvedic care. Guided by Dr. Nimeshika Madithiyawala, our center in Thissamaharama is dedicated to holistic healing.",
+  keywords: ["Dr. Nimeshika Madithiyawala", "Ayurvedic Doctor", "Siddhaka Ayurveda History", "Holistic Vision"],
 }
 
 export default function AboutPage() {

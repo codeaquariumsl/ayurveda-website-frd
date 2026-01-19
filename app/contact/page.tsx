@@ -2,9 +2,10 @@ import type { Metadata } from "next"
 import { Mail, Phone, MapPin, Clock } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Contact Us - Siddhaka Ayurveda",
+  title: "Contact Us & Book Consultation",
   description:
-    "Get in touch with Siddhaka Ayurveda. Schedule your consultation with Dr. Nimeshika Madithiyawala in Thissamaharama.",
+    "Get in touch with Siddhaka Ayurveda in Thissamaharama. Schedule your consultation with Dr. Nimeshika Madithiyawala. Available 7 days a week by appointment.",
+  keywords: ["Book Ayurveda Consultation", "Contact Siddhaka Ayurveda", "Ayurveda Thissamaharama Location", "WhatsApp Ayurveda"],
 }
 
 export default function ContactPage() {

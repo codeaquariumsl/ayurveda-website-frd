@@ -11,11 +11,50 @@ import { Toaster } from "@/components/ui/toaster"
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
+const siteUrl = "https://www.siddhakaayurveda.com"
+
 export const metadata: Metadata = {
-  title: "Siddhaka Ayurveda - Holistic Healing Center",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Siddhaka Ayurveda - Holistic Healing Center in Thissamaharama",
+    template: "%s | Siddhaka Ayurveda",
+  },
   description:
-    "Experience authentic Ayurvedic treatments and wellness in Thissamaharama. Guided by Dr. Nimeshika Madithiyawala for mind, body, and soul rejuvenation.",
-  generator: "ca.app",
+    "Experience authentic Ayurvedic treatments and wellness in Thissamaharama, Sri Lanka. Guided by Dr. Nimeshika Madithiyawala for mind, body, and soul rejuvenation.",
+  keywords: ["Ayurveda", "Sri Lanka", "Thissamaharama", "Wellness", "Holistic Healing", "Dr. Nimeshika Madithiyawala", "Panchakarma", "Ayurvedic Massage"],
+  authors: [{ name: "Dr. Nimeshika Madithiyawala" }],
+  creator: "Siddhaka Ayurveda",
+  publisher: "Siddhaka Ayurveda",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Siddhaka Ayurveda - Holistic Healing Center",
+    description: "Authentic Ayurvedic treatments and wellness in Thissamaharama, Sri Lanka.",
+    url: siteUrl,
+    siteName: "Siddhaka Ayurveda",
+    images: [
+      {
+        url: "/SlideImages/001.JPG",
+        width: 1200,
+        height: 630,
+        alt: "Siddhaka Ayurveda Wellness Center",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Siddhaka Ayurveda - Holistic Healing Center",
+    description: "Authentic Ayurvedic treatments and wellness in Thissamaharama, Sri Lanka.",
+    images: ["/SlideImages/001.JPG"],
+  },
   icons: {
     icon: [
       {
@@ -32,6 +71,17 @@ export const metadata: Metadata = {
       },
     ],
     apple: "/apple-icon.png",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 }
 
