@@ -1,5 +1,5 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
@@ -12,6 +12,13 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 const siteUrl = "https://www.siddhakaayurveda.com"
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -92,6 +99,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Siddhaka Ayurveda" />
+      </head>
       <body className={`font-sans antialiased`}>
         <AuthProvider>
           <Navbar />

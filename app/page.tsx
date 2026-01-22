@@ -5,7 +5,7 @@ import Image from "next/image"
 import HeroSlider from "@/components/hero-slider"
 
 export const metadata: Metadata = {
-  title: "Siddhaka Ayurveda | Authentic Ayurvedic Healing in Thissamaharama",
+  title: "Siddhaka Ayurveda",
   description:
     "Reconnect, rejuvenate, and restore your natural balance with authentic Ayurvedic treatments. Guided by Dr. Nimeshika Madithiyawala in Thissamaharama, Sri Lanka.",
   keywords: ["Ayurveda Sri Lanka", "Thissamaharama Wellness", "Dr. Nimeshika Madithiyawala", "Panchakarma Center", "Natural Healing"],
@@ -93,11 +93,11 @@ export default function Home() {
       <HeroSlider />
 
       {/* Welcome Section */}
-      <section className="relative py-20 md:py-28 overflow-hidden">
+      <section className="relative py-12 sm:py-16 md:py-20 lg:py-28 overflow-hidden">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/006.JPG" //  /wellcome.JPG
+            src="/006.JPG"
             alt="Wellness Background"
             fill
             className="object-cover"
@@ -106,22 +106,22 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/70 to-background" />
         </div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 text-center">
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
           <div className="max-w-4xl mx-auto">
             <Image
               src="/Siddhaka_ayurveda_Logo.png"
               alt="Siddhaka Ayurveda Logo"
               width={240}
               height={80}
-              className="mx-auto mb-8 h-20 w-auto"
+              className="mx-auto mb-6 sm:mb-8 h-16 sm:h-20 w-auto"
             />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 text-balance">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-3 sm:mb-4 text-balance leading-tight">
               Welcome to Siddhaka Ayurveda
             </h1>
-            <p className="text-lg text-primary font-bold mb-6 italic tracking-wide">
+            <p className="text-base sm:text-lg text-primary font-bold mb-4 sm:mb-6 italic tracking-wide">
               "Reconnect. Rejuvenate. Restore your natural balance."
             </p>
-            <p className="text-lg text-muted-foreground text-balance leading-relaxed">
+            <p className="text-base sm:text-lg text-muted-foreground text-balance leading-relaxed px-1">
               Welcome to Siddhaka Ayurveda — a serene haven for holistic healing nestled in the peaceful surroundings of
               Thissamaharama. Guided by Dr. Nimeshika Madithiyawala, we provide authentic Ayurvedic treatments designed
               to help you reconnect and rejuvenate your mind, body, and soul. At Siddhaka Ayurveda, wellness is a
@@ -132,13 +132,13 @@ export default function Home() {
       </section>
 
       {/* About Us Section */}
-      <section className="py-12 md:py-16 bg-background">
-        <div className="max-w-6xl mx-auto px-3 sm:px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">About Us</h2>
-          <p className="text-lg text-primary font-semibold mb-6 italic">
+      <section className="py-10 sm:py-12 md:py-16 bg-background">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">About Us</h2>
+          <p className="text-base sm:text-lg text-primary font-semibold mb-4 sm:mb-6 italic">
             "Ancient wisdom, personalized for your modern life."
           </p>
-          <div className="space-y-3 text-muted-foreground leading-relaxed">
+          <div className="space-y-3 sm:space-y-4 text-sm sm:text-base text-muted-foreground leading-relaxed">
             <p>
               Siddhaka Ayurveda is a holistic healing center dedicated to promoting natural health through the wisdom of
               classical Ayurveda. We combine personalized consultations, traditional therapies, and mindful lifestyle
@@ -153,28 +153,28 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-12 md:py-16 bg-card">
-        <div className="max-w-6xl mx-auto px-3 sm:px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <section className="py-10 sm:py-12 md:py-16 bg-card">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             {/* Vision Tile */}
-            <div className="bg-background rounded-lg p-6 border border-border">
-              <h3 className="text-2xl font-bold text-foreground mb-3">Our Vision</h3>
-              <p className="text-sm text-primary font-semibold mb-3 italic">
+            <div className="bg-background rounded-lg p-5 sm:p-6 border border-border">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">Our Vision</h3>
+              <p className="text-xs sm:text-sm text-primary font-semibold mb-3 italic">
                 "Inspiring holistic living and natural wellness for everyone."
               </p>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 To be a trusted center of Ayurvedic healing, inspiring natural wellness and holistic living, where
                 individuals can reconnect with their innate capacity for balance, vitality, and well-being.
               </p>
             </div>
 
             {/* Mission Tile */}
-            <div className="bg-background rounded-lg p-6 border border-border">
-              <h3 className="text-2xl font-bold text-foreground mb-3">Our Mission</h3>
-              <p className="text-sm text-primary font-semibold mb-3 italic">
+            <div className="bg-background rounded-lg p-5 sm:p-6 border border-border">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">Our Mission</h3>
+              <p className="text-xs sm:text-sm text-primary font-semibold mb-3 italic">
                 "Compassionate care rooted in authentic Ayurveda."
               </p>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 To provide authentic, personalized Ayurvedic care rooted in classical wisdom, delivered with compassion
                 and professionalism. We aim to nurture mind, body, and soul by addressing the root causes of imbalance,
                 promoting natural healing, and supporting sustainable wellness in everyday life.
@@ -182,12 +182,12 @@ export default function Home() {
             </div>
 
             {/* Concept Tile */}
-            <div className="bg-background rounded-lg p-6 border border-border">
-              <h3 className="text-2xl font-bold text-foreground mb-3">Our Concept</h3>
-              <p className="text-sm text-primary font-semibold mb-3 italic">
+            <div className="bg-background rounded-lg p-5 sm:p-6 border border-border">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">Our Concept</h3>
+              <p className="text-xs sm:text-sm text-primary font-semibold mb-3 italic">
                 "Healing mind, body, and soul — naturally, gently, sustainably."
               </p>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 At Siddhaka Ayurveda, wellness is a journey of balance and harmony. Our approach blends classical
                 Ayurvedic principles with practical lifestyle guidance to help you achieve natural health and vitality.
                 We tailor each treatment to individual needs, focusing on root causes, rejuvenation, and sustainable
@@ -201,18 +201,18 @@ export default function Home() {
       </section>
 
       {/* Why Choose Section */}
-      <section className="py-12 md:py-16 bg-background">
-        <div className="max-w-6xl mx-auto px-3 sm:px-4">
-          <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-8">Why Choose Siddhaka Ayurveda?</h3>
-          <div className="space-y-4">
+      <section className="py-10 sm:py-12 md:py-16 bg-background">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8">Why Choose Siddhaka Ayurveda?</h3>
+          <div className="space-y-3 sm:space-y-4">
             {whyChooseReasons.map((reason, idx) => (
-              <div key={idx} className="flex gap-3">
-                <div className="flex-shrink-0">
-                  <CheckCircle className="w-6 h-6 text-primary mt-0.5" />
+              <div key={idx} className="flex gap-3 sm:gap-4">
+                <div className="flex-shrink-0 pt-0.5 sm:pt-1">
+                  <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
                 </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">{reason.title}</h4>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{reason.description}</p>
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-semibold text-foreground mb-1 text-sm sm:text-base">{reason.title}</h4>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{reason.description}</p>
                 </div>
               </div>
             ))}
@@ -221,10 +221,10 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="py-12 md:py-16 bg-background">
-        <div className="max-w-6xl mx-auto px-3 sm:px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-10 text-balance">Our Services</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <section className="py-10 sm:py-12 md:py-16 bg-background">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-10 text-balance">Our Services</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {[
               { title: "Head & Hair", href: "/treatments#head-care" },
               { title: "Body & Skin", href: "/treatments#body-care" },
@@ -234,12 +234,12 @@ export default function Home() {
               <Link
                 key={idx}
                 href={service.href}
-                className="p-5 bg-card rounded-lg border border-border hover:border-primary hover:shadow-md transition-all group"
+                className="p-4 sm:p-5 bg-card rounded-lg border border-border hover:border-primary hover:shadow-md transition-all group active:scale-95 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background"
               >
-                <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors mb-2">
+                <h3 className="text-base sm:text-lg font-semibold text-foreground group-hover:text-primary transition-colors mb-1 sm:mb-2">
                   {service.title}
                 </h3>
-                <p className="text-sm text-muted-foreground">Explore our specialties</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Explore our specialties</p>
               </Link>
             ))}
           </div>
@@ -247,17 +247,17 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 md:py-16 bg-gradient-to-r from-primary to-secondary">
-        <div className="max-w-6xl mx-auto px-3 sm:px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4 text-balance">
+      <section className="py-10 sm:py-12 md:py-16 bg-gradient-to-r from-primary to-secondary">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary-foreground mb-3 sm:mb-4 text-balance leading-tight">
             Ready to Begin Your Wellness Journey?
           </h2>
-          <p className="text-lg text-primary-foreground/90 mb-6 text-balance">
+          <p className="text-base sm:text-lg text-primary-foreground/90 mb-5 sm:mb-6 text-balance px-1">
             Schedule a consultation with Dr. Nimeshika Madithiyawala and discover your path to natural healing
           </p>
           <Link
             href="/packages"
-            className="px-8 py-3 bg-primary-foreground text-primary rounded-lg hover:opacity-90 transition-opacity font-semibold inline-block"
+            className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-primary-foreground text-primary rounded-lg hover:opacity-90 transition-opacity font-semibold min-h-11 sm:min-h-12 focus:outline-none focus:ring-2 focus:ring-primary-foreground focus:ring-offset-2 dark:focus:ring-offset-background active:scale-95"
           >
             Book Your Appointment
           </Link>

@@ -19,10 +19,10 @@ function SignatureCard({ pkg }: { pkg: any }) {
       )}
       <div className="p-5">
         <h3 className="text-lg font-bold text-foreground mb-1">{pkg.name}</h3>
-        <div className="flex items-center gap-2 mb-3 text-primary font-medium text-sm">
+        {/* <div className="flex items-center gap-2 mb-3 text-primary font-medium text-sm">
           <Clock size={14} />
           <span>{pkg.duration} minutes</span>
-        </div>
+        </div> */}
         {pkg.focus && <p className="text-sm font-semibold text-primary mb-3">Focus: {pkg.focus}</p>}
         <p className="text-xs font-semibold text-foreground mb-2 uppercase">Includes:</p>
         <ul className="space-y-1 mb-3">

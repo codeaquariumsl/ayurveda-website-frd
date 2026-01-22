@@ -90,17 +90,27 @@ export default function Navbar() {
                     href={item.href}
                     className="relative px-4 py-2 group"
                   >
-                    <span className={`text-sm font-bold transition-all duration-300 ${isActive
-                      ? "text-primary"
-                      : isScrolled
-                        ? "text-foreground group-hover:text-primary"
-                        : " " + (isNotHomeOrAyurveda ? "" : " text-white hover:text-white/80 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] ")
-                      }`}>
+                    <span className={`text-sm font-bold transition-all duration-300 ${
+                      isActive
+                        ? isScrolled
+                          ? "text-primary"
+                          : isNotHomeOrAyurveda
+                            ? "text-primary"
+                            : "text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
+                        : isScrolled
+                          ? "text-foreground group-hover:text-primary"
+                          : isNotHomeOrAyurveda
+                            ? "text-foreground"
+                            : "text-white hover:text-white/80 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
+                    }`}>
                       {item.label}
                     </span>
-                    {/* Subtle expansion underline effect */}
-                    <div className={`absolute bottom-0 left-4 right-4 h-0.5 bg-primary rounded-full transition-all duration-300 origin-center ${isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100 opacity-50"
-                      }`} />
+                    {/* Enhanced underline with better visibility */}
+                    <div className={`absolute bottom-0 left-4 right-4 h-1 bg-gradient-to-r from-primary via-accent to-primary rounded-full transition-all duration-300 origin-center shadow-lg shadow-primary/50 ${
+                      isActive
+                        ? "scale-x-100 opacity-100"
+                        : "scale-x-0 group-hover:scale-x-100 opacity-30 group-hover:opacity-60"
+                    }`} />
                   </Link>
                 )
               })}
