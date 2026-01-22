@@ -97,7 +97,7 @@ export default function Home() {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/wellcome.JPG"
+            src="/006.JPG" //  /wellcome.JPG
             alt="Wellness Background"
             fill
             className="object-cover"
