@@ -11,7 +11,7 @@ export default function TreatmentsPage() {
   const mainTabs = [
     {
       id: "head-care",
-      name: "Head and Hair Care Treatments a",
+      name: "Head and Hair Care Treatments",
       treatments: [
         {
           title: "Shiro Dhara",
@@ -30,7 +30,7 @@ export default function TreatmentsPage() {
           title: "Shiro Abhyanga (Head Massage)",
           description:
             "Shiro Abhyanga is a therapeutic head massage using medicated oils, focusing on marma points of the head, forehead, neck, and shoulders to induce deep relaxation and calmness.",
-          image: "/ayurvedic-scalp-massage-therapy.jpg",
+          image: "/Treatment/Head Massage.JPG",
           benefits: [
             "Promotes deep relaxation and restful sleep",
             "Reduces mental fatigue, eye strain, and tension",
@@ -60,7 +60,7 @@ export default function TreatmentsPage() {
         {
           title: "Shareera Abhyanga (Body Oil Massage)",
           description: "A full body massage using medicated oils selected according to individual dosha, including face and foot massage.",
-          image: "/Treatment/Shareera Abhyanga.JPG",
+          image: "/Treatment/Body Oil Massage.JPG",
           benefits: [
             "Improves skin tone, texture, and natural glow",
             "Relieves body pain, stiffness, and fatigue",
@@ -135,79 +135,77 @@ export default function TreatmentsPage() {
         {
           title: "Nadi Sweda (Steam Therapy)",
           description:
-            "A process by which the person is made to perspire using a tube and medicated steam passed on whole body or affected part.",
+            "A localized steam therapy where medicated steam is directed through a tube to the affected area or entire body.",
           image: "/Treatment/Nadi Sweda.JPG",
-          benefits: ["Relieves pain immediately without oral drugs", "Therapeutic heating treatment"],
+          benefits: [
+            "Provides instant pain relief", 
+            "Reduces stiffness without oral medication",
+            "Improves circulation and detoxification",
+            "Relieves musculoskeletal pain"
+          ],
         },
         {
-          title: "Vashpa Sweda",
+          title: "Bhashpa Sweda (Steam Bath)",
           description:
-            "Apparatus used as sitting posture or lying posture is from shoulders to feet with herbal medicinal steam.",
-          image: "/Treatment/Vashpa Sweda.JPG",
+            "A full body herbal medicated steam bath administered in a sitting or lying posture from the shoulders to the feet.",
+          image: "/Treatment/Steam Bath.JPG",
           benefits: [
-            "Detoxifies body",
+            "Detoxifies the body through perspiration",
             "Relaxes the body and mind",
-            "Helps for weight reduction",
-            "Reduces pains and aches",
-            "Beneficial for arthritis and back pain",
+            "Aids in weight management",
+            "Reduces pain, stiffness, and fatigue",
+            "Beneficial for arthritis, back pain, and chronic conditions",
           ],
         },
         {
-          title: "Avagaha Sweda",
+          title: "Avagaha Sweda (Herbal Bath)",
           description:
-            "A process by which the individual will be immersion of the decoction to produce fomentation to the body and lukewarm temperature is maintained in the tub. Before the treatment, medicated oil is applied to the head and body.",
-          image: "/Treatment/Avagaha Sweda.JPG",
+            "It is a process in which the individual is immersed in a decoction to produce fomentation to the body. Medicated oil is applied to the head and body. The prescribed decoction is filled into the tub, and a lukewarm temperature is maintained.",
+          image: "/Treatment/Herbal Bath.JPG",
           benefits: [
-            "Relaxes body and mind",
-            "Helps to treat urinary tract infections",
-            "Treats lower back pain",
-            "Treats gynecological disorders",
-            "Treats hemorrhoids",
-            "Treats infertility",
-          ],
-        },
-        {
-          title: "Mud Therapy",
-          description:
-            "An ancient practice that uses mud mask to bring out your natural beauty by enhancing complexion and glow of the skin.",
-          image: "/ayurvedic-mud-therapy-mask.jpg",
-          benefits: [
-            "Relaxes the muscles",
-            "Improves blood circulation",
-            "Maintains metabolism",
-            "Regenerates healthy skin",
-            "Eliminates the dead skin",
-            "Refines skin structure",
-            "Relieves pain and swelling",
+            "Relaxes muscles and calms the nervous system",
+            "Helpful for urinary tract disorders",
+            "Relieves lower back pain and gynecological disorders",
+            "Beneficial for infertility and hemorrhoids",
           ],
         },
         {
           title: "Kati Vasti",
           description:
-            "The most effective Ayurveda therapy for back pain. Warm medicated oil is retained in lower back area after making a rim with black gram dough around spine.",
+            "It is one of the most effective Ayurvedic therapies for back pain. The term “kati” refers to the lower back area. In this therapy, warm medicated oil is retained in the lower back area after making a rim with black gram dough around the spine for a particular period of time.",
           image: "/Treatment/Kati Wasthi.JPG",
           benefits: [
-            "Most effective for back pain",
-            "Treats inflammation and stiffness",
-            "Treats numbness due to sciatic nerve compression",
-            "Strengthens back muscles",
-            "Maintains normal curvature of spine",
-            "Strengthens joints, muscles and soft tissues",
+            "Highly effective for chronic back pain",
+            "Relieves inflammation, stiffness, and numbness",
+            "Beneficial for sciatica and disc-related issues",
+            "Beneficial for strengthening back muscles that maintain the normal curvature of the spine",
+            "Strengthens joints, muscles and soft tissues"
           ],
         },
         {
           title: "Janu Vasti",
           description:
-            "A treatment in which medicated oils are poured and pooled for a fixed duration in a compartment constructed around the knee joint using wet flour of black gram.",
-          image: "/ayurvedic-knee-joint-treatment.jpg",
+            "It is a treatment in which medicated oils are poured and pooled for a fixed duration in a compartment constructed around the knee joint using wet black gram flour.",
+          image: "/Treatment/Janu.JPG",
           benefits: [
-            "Treats osteoarthritis",
-            "Treats knee joint sublaxation",
-            "Treats rheumatism and ligament tear",
-            "Relieves knee pain",
-            "Improves knee joint movement",
-            "Reduces swelling",
-            "Increases weight bearing capacity",
+            "Relieves knee pain and swelling",
+            "Improves joint movement and flexibility",
+            "Beneficial for osteoarthritis and ligament injuries",
+            "Helps to treat subluxation of the knee joint and rheumatism",
+            "Enhances joint strength and weight-bearing capacity"
+          ],
+        },
+        {
+          title: "Mud Therapy",
+          description:
+            "An ancient therapy using medicated mud applications to improve skin health and natural beauty.",
+          image: "/ayurvedic-mud-therapy-mask.jpg",
+          benefits: [
+            "Enhances complexion and skin glow",
+            "Improves blood circulation and maintains metabolism",
+            "Removes dead skin cells and regenerate healthy skin",
+            "Reduces inflammation, swelling, and relieves pain",
+            "Promotes skin regeneration",
           ],
         },
       ],
@@ -217,18 +215,52 @@ export default function TreatmentsPage() {
       name: "Facial Care Treatments",
       treatments: [
         {
-          title: "Nasal Inhalation",
+          title: "Face Massage",
           description:
-            "Inhalation is a soothing Ayurvedic Therapy used cleanse and rejuvenate the nasal passages, sinuses and respiratory system. It is part of facial care treatments for cleansing and rejuvenation. It involves the use of herbal steam or medicated smoke for therapeutic purposes.",
+            "A rejuvenating Ayurvedic face massage using medicated oils and marma point stimulation.",
           image: "/Treatment/Face Massage.JPG",
           benefits: [
-            "Relieves nasal congestion",
-            "Eases difficulty in breathing",
-            "Loosens thick mucus and phlegm",
-            "Helpful in sinusitis, cold, and cough",
-            "Reduces facial pressure",
-            "Gives soothing and calming effect",
-            "Improves sense of freshness and clarity",
+            "Firms and smoothens the skin",
+            "Reduces wrinkles and fine lines",
+            "Improves circulation and skin nourishment",
+            "Promotes natural glow and relaxation",
+            "Regenerate skin cells and remove impurities",
+          ],
+        },
+        {
+          title: "Facial Treatment",
+          description:
+            "A deep-purifying facial with powerful Ayurvedic herbs and includes a herbal scrub, steam, and facial massage, followed by a mask.",
+          image: "/Treatment/Facial Treatment.JPG",
+          benefits: [
+            "Cleanses clogged pores",
+            "Balances excess oil and dryness",
+            "Improves complexion and skin clarity",
+            "Reduces sunburn, pigmentation, and dark patches",
+          ],
+        },
+        {
+          title: "Akshi Tharpana",
+          description:
+            "A specialized eye therapy where medicated ghee is retained over the eyes for nourishment and strengthening. Akshi means eyes, and Tharpana means giving strength to the eyes.",
+          image: "/Treatment/Akshi Tharpana.JPG",
+          benefits: [
+            "Improves vision and eye strength",
+            "Reduces eye strain and dryness",
+            "Enhances mental clarity",
+            "Preventive and curative for eye disorders",
+          ],
+        },
+        {
+          title: "Nasal Inhalation",
+          description:
+            "A soothing therapy using herbal steam or medicated vapors for nasal and sinus cleansing.",
+          image: "/Treatment/Inherlation.JPG",
+          benefits: [
+            "Cleanse and rejuvenate the nasal passages, sinuses and respiratory system",
+            "Relieves headache and breathing discomfort",
+            "Improves respiratory health",
+            "Promotes relaxation and freshness",
           ],
         }
       ],
@@ -239,28 +271,25 @@ export default function TreatmentsPage() {
       treatments: [
         {
           title: "Pada Abhyanga (Foot Massage)",
-          description: "Foot massage with medicated oil and stimulates the Marma and reflex points in the feet. Foots are represent the whole body therefore treatment is benefits for all systems.",
+          description: "A therapeutic foot massage using medicated oils to stimulate marma and reflex points.",
           image: "/Treatment/Foot Massage (2).JPG",
           benefits: [
             "Reduces foot pain and burning sensation",
-            "Reduce muscular pain and stiffness",
-            "Induce sleep",
-            "Body relaxation and balance",
+            "Relieves muscular stiffness and fatigue",
+            "Induces sound sleep",
+            "Promotes overall body balance and relaxation",
           ],
         },
         {
           title: "Relaxing Foot Treatment",
           description:
-            "This Foot Treatment is for relaxing and skin brightening experience. Commence with a relaxing herbal foot bath followed by herbal scrub, foot massage with stimulating Marma points and ends with foot mask and toning of foot.",
+            "A complete foot rejuvenation ritual including herbal foot bath, scrub, massage, marma stimulation, foot mask, and toning.",
           image: "/Treatment/Relaxing foot tre.JPG",
           benefits: [
-            "Deeply relaxes the body and mind",
-            "Reduces stress, anxiety, and mental fatigue",
-            "Promotes better sleep",
-            "Activates vital energy points(marma)",
-            "Improves circulation in feet and lower limbs",
-            "Helps relieve tiredness and heaviness of legs",
-            "Supports overall energy balance in the body",
+            "Deeply relaxes tired feet",
+            "Improves skin texture and brightness",
+            "Enhances circulation",
+            "Promotes calmness and well-being",
           ],
         },
       ],
