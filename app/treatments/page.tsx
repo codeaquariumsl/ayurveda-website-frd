@@ -11,7 +11,7 @@ export default function TreatmentsPage() {
   const mainTabs = [
     {
       id: "head-care",
-      name: "Head and Hair Care Treatments",
+      name: "Head and Hair Care Treatments a",
       treatments: [
         {
           title: "Shiro Dhara",
