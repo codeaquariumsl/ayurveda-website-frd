@@ -93,40 +93,57 @@ export default function Home() {
       <HeroSlider />
 
       {/* Welcome Section */}
-      <section className="relative py-12 sm:py-16 md:py-20 lg:py-28 overflow-hidden">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/006.JPG"
-            alt="Wellness Background"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/70 to-background" />
-        </div>
-
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <div className="max-w-4xl mx-auto">
+      <section className="relative py-12 lg:py-0 bg-background overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[600px] lg:min-h-[85vh] max-h-[900px]">
+          {/* Left Side: Image */}
+          <div className="relative h-[400px] lg:h-full w-full overflow-hidden order-last lg:order-first">
             <Image
-              src="/Siddhaka_ayurveda_Logo.png"
-              alt="Siddhaka Ayurveda Logo"
-              width={240}
-              height={80}
-              className="mx-auto mb-6 sm:mb-8 h-16 sm:h-20 w-auto"
+              src="/006.JPG"
+              alt="Siddhaka Ayurveda Wellness Center"
+              fill
+              className="object-cover"
+              priority
             />
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-3 sm:mb-4 text-balance leading-tight">
-              Welcome to Siddhaka Ayurveda
-            </h1>
-            <p className="text-base sm:text-lg text-primary font-bold mb-4 sm:mb-6 italic tracking-wide">
-              "Reconnect. Rejuvenate. Restore your natural balance."
-            </p>
-            <p className="text-base sm:text-lg text-muted-foreground text-balance leading-relaxed px-1">
-              Welcome to Siddhaka Ayurveda — a serene haven for holistic healing nestled in the peaceful surroundings of
-              Thissamaharama. Guided by Dr. Nimeshika Madithiyawala, we provide authentic Ayurvedic treatments designed
-              to help you reconnect and rejuvenate your mind, body, and soul. At Siddhaka Ayurveda, wellness is a
-              journey, and we are here to guide you every step of the way.
-            </p>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/20" />
+          </div>
+
+          {/* Right Side: Content */}
+          <div className="flex flex-col items-center justify-center text-center px-6 py-12 lg:px-16 xl:px-24 bg-background z-10 order-first lg:order-last">
+            {/* Logo */}
+            <div className="mb-6 md:mb-8">
+              <Image
+                src="/Siddhaka_ayurveda_Logo.png"
+                alt="Siddhaka Ayurveda Logo"
+                width={240}
+                height={80}
+                className="h-16 md:h-24 w-auto drop-shadow-sm"
+              />
+            </div>
+
+            {/* Main Heading */}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
+              Welcome to <span className="text-primary">Siddhaka Ayurveda</span>
+            </h2>
+
+            {/* Tagline */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 rounded-full mb-6">
+              <div className="w-2 h-2 rounded-full bg-primary animate-ping" />
+              <p className="text-sm sm:text-base text-primary font-bold italic tracking-wide">
+                "Reconnect. Rejuvenate. Restore your natural balance."
+              </p>
+            </div>
+
+            {/* Body Text */}
+            <div className="space-y-4 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl font-medium">
+              <p>
+                Siddhaka Ayurveda is a serene haven for holistic healing nestled in the peaceful surroundings of
+                Thissamaharama. Guided by <span className="text-foreground font-semibold">Dr. Nimeshika Madithiyawala</span>, we provide authentic Ayurvedic treatments designed
+                to help you reconnect and rejuvenate your mind, body, and soul.
+              </p>
+              <p>
+                At Siddhaka Ayurveda, wellness is a journey, and we are here to guide you every step of the way with treatments rooted in ancient wisdom and personalized for your unique needs.
+              </p>
+            </div>
           </div>
         </div>
       </section>

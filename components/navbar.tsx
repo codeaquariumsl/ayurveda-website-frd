@@ -60,7 +60,7 @@ export default function Navbar() {
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-16 md:h-20">
             {/* Logo with scale effect */}
             <Link href="/" className="relative z-10 flex items-center gap-2 group">
               <motion.div
@@ -71,9 +71,9 @@ export default function Navbar() {
                 <Image
                   src="/Siddhaka_ayurveda_Logo.png"
                   alt="Siddhaka Ayurveda"
-                  width={160}
-                  height={50}
-                  className="h-10 w-auto object-contain"
+                  width={200}
+                  height={64}
+                  className="h-12 md:h-16 w-auto object-contain"
                   priority
                 />
               </motion.div>
@@ -90,27 +90,25 @@ export default function Navbar() {
                     href={item.href}
                     className="relative px-4 py-2 group"
                   >
-                    <span className={`text-sm font-bold transition-all duration-300 ${
-                      isActive
-                        ? isScrolled
+                    <span className={`text-sm font-bold transition-all duration-300 ${isActive
+                      ? isScrolled
+                        ? "text-primary"
+                        : isNotHomeOrAyurveda
                           ? "text-primary"
-                          : isNotHomeOrAyurveda
-                            ? "text-primary"
-                            : "text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
-                        : isScrolled
-                          ? "text-foreground group-hover:text-primary"
-                          : isNotHomeOrAyurveda
-                            ? "text-foreground"
-                            : "text-white hover:text-white/80 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
-                    }`}>
+                          : "text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
+                      : isScrolled
+                        ? "text-foreground group-hover:text-primary"
+                        : isNotHomeOrAyurveda
+                          ? "text-foreground"
+                          : "text-white hover:text-white/80 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
+                      }`}>
                       {item.label}
                     </span>
                     {/* Enhanced underline with better visibility */}
-                    <div className={`absolute bottom-0 left-4 right-4 h-1 bg-gradient-to-r from-primary via-accent to-primary rounded-full transition-all duration-300 origin-center shadow-lg shadow-primary/50 ${
-                      isActive
-                        ? "scale-x-100 opacity-100"
-                        : "scale-x-0 group-hover:scale-x-100 opacity-30 group-hover:opacity-60"
-                    }`} />
+                    <div className={`absolute bottom-0 left-4 right-4 h-1 bg-gradient-to-r from-primary via-accent to-primary rounded-full transition-all duration-300 origin-center shadow-lg shadow-primary/50 ${isActive
+                      ? "scale-x-100 opacity-100"
+                      : "scale-x-0 group-hover:scale-x-100 opacity-30 group-hover:opacity-60"
+                      }`} />
                   </Link>
                 )
               })}
@@ -295,7 +293,7 @@ export default function Navbar() {
 
       {/* Spacer to prevent content from being covered on pages without a hero image */}
       {!["/", "/ayurveda"].includes(pathname) && (
-        <div className="h-16 md:h-20" />
+        <div className="h-20 md:h-24" />
       )}
     </>
   )

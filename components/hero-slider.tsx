@@ -114,7 +114,7 @@ export default function HeroSlider() {
   return (
     <div className="relative w-full bg-background overflow-hidden">
       {/* Main Slider Container */}
-      <div className="relative w-full h-screen max-h-[760px] flex items-center justify-center bg-card">
+      <div className="relative w-full h-screen min-h-[400px] flex items-center justify-center bg-card">
         {/* Slides */}
         {slides.map((slide, idx) => (
           <div
@@ -146,11 +146,11 @@ export default function HeroSlider() {
             {/* Content Overlay */}
             {slide.title && !isVideo && (
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pointer-events-none">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 text-balance pointer-events-auto">
+                <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 sm:mb-4 text-balance pointer-events-auto">
                   {slide.title}
                 </h1>
                 {slide.subtitle && (
-                  <p className="text-lg md:text-xl text-white/90 max-w-2xl italic">{slide.subtitle}</p>
+                  <p className="text-sm sm:text-lg md:text-xl text-white/90 max-w-2xl italic px-4">{slide.subtitle}</p>
                 )}
               </div>
             )}
@@ -160,22 +160,22 @@ export default function HeroSlider() {
         {/* Navigation Buttons */}
         <button
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/20 hover:bg-white/40 transition-colors text-white"
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full bg-white/20 hover:bg-white/40 transition-colors text-white"
           aria-label="Previous slide"
         >
-          <ChevronLeft className="w-6 h-6" />
+          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
 
         <button
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/20 hover:bg-white/40 transition-colors text-white"
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full bg-white/20 hover:bg-white/40 transition-colors text-white"
           aria-label="Next slide"
         >
-          <ChevronRight className="w-6 h-6" />
+          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
 
         {/* Slide Indicators */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+        <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 flex gap-2">
           {slides.map((_, idx) => (
             <button
               key={idx}
@@ -189,7 +189,7 @@ export default function HeroSlider() {
       </div>
 
       {/* Slide Counter */}
-      <div className="absolute top-6 right-6 z-10 text-white text-sm font-medium bg-black/40 px-4 py-2 rounded-full">
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10 text-white text-[10px] sm:text-sm font-medium bg-black/40 px-3 py-1 sm:px-4 sm:py-2 rounded-full">
         {currentSlide + 1} / {slides.length}
       </div>
     </div>
