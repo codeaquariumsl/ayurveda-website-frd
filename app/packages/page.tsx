@@ -88,68 +88,73 @@ export default function PackagesPage() {
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Menu for Wellness</h2>
 
           <TreatmentTabs
-            tabs={categories.map((cat) => ({
-              id: cat.sub,
-              name: cat.label,
-              treatments: wellnessPackages
-                .filter((p) => p.subcategory === cat.sub)
-                .map((pkg) => ({
+            tabs={[
+              ...categories.map((cat) => ({
+                id: cat.sub,
+                name: cat.label,
+                treatments: wellnessPackages
+                  .filter((p) => p.subcategory === cat.sub)
+                  .map((pkg) => ({
+                    title: pkg.name,
+                    duration: `${pkg.duration} minutes`,
+                    description: pkg.description,
+                    benefits: pkg.includes,
+                    image: pkg.image || "",
+                    type: "wellness",
+                    _original: pkg,
+                  })),
+              })),
+              {
+                id: "special",
+                name: "Special Packages",
+                treatments: specialPackages.map((pkg) => ({
                   title: pkg.name,
-                  duration: `${pkg.duration} minutes`,
+                  duration: "",
                   description: pkg.description,
-                  benefits: pkg.includes,
+                  benefits: [],
                   image: pkg.image || "",
-                  // Pass original pkg data if needed by custom renderer or keep it minimal
+                  type: "special",
                   _original: pkg,
                 })),
-            }))}
-            renderItem={(treatment: any) => (
-              <WellnessPackageCard
-                treatment={{
-                  title: treatment.title,
-                  duration: treatment.duration,
-                  description: treatment.description,
-                  image: treatment.image,
-                }}
-                onBookClick={() =>
-                  setSelectedPackageInfo({
-                    name: treatment.title,
-                    id: treatment._original._id || treatment._original.id,
-                  })
-                }
-              />
-            )}
+              },
+              {
+                id: "signature",
+                name: "Signature Packages",
+                treatments: signaturePackages.map((pkg) => ({
+                  title: pkg.name,
+                  duration: "",
+                  description: pkg.description,
+                  benefits: [],
+                  image: pkg.image || "",
+                  type: "signature",
+                  _original: pkg,
+                })),
+              },
+            ]}
+            renderItem={(treatment: any) => {
+              if (treatment.type === "special" || treatment.type === "signature") {
+                return <SignatureCard pkg={treatment._original} />
+              }
+              return (
+                <WellnessPackageCard
+                  treatment={{
+                    title: treatment.title,
+                    duration: treatment.duration,
+                    description: treatment.description,
+                    image: treatment.image,
+                  }}
+                  onBookClick={() =>
+                    setSelectedPackageInfo({
+                      name: treatment.title,
+                      id: treatment._original._id || treatment._original.id,
+                    })
+                  }
+                />
+              )
+            }}
           />
         </div>
       </section>
-
-      {/* Special Packages */}
-      {specialPackages.length > 0 && (
-        <section className="py-8 md:py-10 bg-card/50">
-          <div className="max-w-6xl mx-auto px-3 sm:px-4">
-            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-5">Special Packages</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {specialPackages.map((pkg) => (
-                <SignatureCard key={pkg._id || pkg.id} pkg={pkg} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Signature Packages */}
-      {signaturePackages.length > 0 && (
-        <section className="py-8 md:py-10 bg-background">
-          <div className="max-w-6xl mx-auto px-3 sm:px-4">
-            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-5">Signature Packages</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {signaturePackages.map((pkg) => (
-                <SignatureCard key={pkg._id || pkg.id} pkg={pkg} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* CTA Section */}
       <section className="py-8 md:py-10 bg-gradient-to-r from-primary to-secondary">

@@ -56,8 +56,16 @@ export default function AyurvedaPage() {
       </section>
 
       {/* Introduction */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <section className="relative py-20 px-4 sm:px-6 lg:px-8 mx-auto overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none z-0 opacity-20 mix-blend-multiply">
+          <Image
+            src="/mandala_bg.png"
+            alt="Mandala Background"
+            fill
+            className="object-cover"
+          />
+        </div>
+        <div className="max-w-6xl mx-auto relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-bold">
               <Leaf className="w-4 h-4" />

@@ -45,10 +45,10 @@ export default function Navbar() {
 
   const navItems = [
     { label: "Home", href: "/" },
+    { label: "Ayurveda Medical System", href: "/ayurveda" },
     { label: "Our Treatments", href: "/treatments" },
     { label: "Our Treatment Packages", href: "/packages" },
     { label: "Our Products", href: "/products" },
-    { label: "Ayurveda Medical System", href: "/ayurveda" },
   ]
 
   return (

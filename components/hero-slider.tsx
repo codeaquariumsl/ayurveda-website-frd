@@ -31,15 +31,9 @@ export default function HeroSlider() {
     },
     {
       type: "image",
-      src: "/SlideImages/003.JPG",
-      title: "Authentic Ayurvedic Healing",
+      src: "/SlideImages/006.jpeg",
+      title: "Personalized Ayurvedic treatment in a calm healing environment",
       subtitle: "Traditional treatments for modern wellness",
-    },
-    {
-      type: "image",
-      src: "/SlideImages/004.JPG",
-      title: "Natural Healing Ingredients",
-      subtitle: "Premium quality herbs and oils",
     },
     {
       type: "image",
@@ -49,9 +43,15 @@ export default function HeroSlider() {
     },
     {
       type: "image",
-      src: "/SlideImages/006.jpeg",
-      title: "Personalized Ayurvedic treatment in a calm healing environment",
+      src: "/SlideImages/003.JPG",
+      title: "Authentic Ayurvedic Healing",
       subtitle: "Traditional treatments for modern wellness",
+    },
+    {
+      type: "image",
+      src: "/SlideImages/004.JPG",
+      title: "Natural Healing Ingredients",
+      subtitle: "Premium quality herbs and oils",
     },
     // {
     //   type: "image",
