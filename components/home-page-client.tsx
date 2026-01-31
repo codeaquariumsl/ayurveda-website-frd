@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { CheckCircle } from "lucide-react"
+import { CheckCircle, Sparkles, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import HeroSlider from "@/components/hero-slider"
 import { motion, AnimatePresence } from "framer-motion"
@@ -103,69 +103,147 @@ export default function HomePageClient() {
         >
             <HeroSlider />
 
-            {/* Welcome Section */}
-            <section className="relative w-full min-h-screen bg-background overflow-hidden flex flex-col lg:block">
-                <div className="grid grid-cols-1 lg:grid-cols-2 w-full min-h-screen">
-                    {/* Left Side: Image */}
-                    <div className="relative h-[50vh] lg:h-auto min-h-[400px] lg:min-h-screen w-full overflow-hidden order-last lg:order-first">
+            {/* Welcome Section - Optimized for Premium UX */}
+            <section className="relative w-full min-h-screen flex items-center bg-background overflow-hidden py-16 lg:py-24">
+                {/* Background Pattern - Mandala with subtle parallax feel */}
+                <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 1.1 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 2 }}
+                        className="relative w-full h-full"
+                    >
                         <Image
-                            src="/006.JPG"
-                            alt="Siddhaka Ayurveda Wellness Center"
+                            src="/mandala_bg.png"
+                            alt=""
                             fill
                             className="object-cover"
-                            priority
                         />
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/20" />
-                    </div>
+                    </motion.div>
+                </div>
 
-                    {/* Right Side: Content */}
-                    <div className="relative flex flex-col items-center justify-center text-center px-6 py-12 lg:px-16 xl:px-24 bg-background z-10 order-first lg:order-last min-h-[50vh] lg:min-h-screen">
-                        {/* Background Pattern */}
-                        <div className="absolute inset-0 z-0 opacity-40 pointer-events-none mix-blend-multiply">
-                            <Image
-                                src="/mandala_bg.png"
-                                alt="Mandala Background"
-                                fill
-                                className="object-cover"
-                            />
-                        </div>
-
-                        {/* Content Wrapper */}
-                        <div className="relative z-10">
-                            {/* Logo */}
-                            <div className="mb-6 md:mb-8 flex justify-center">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+                        {/* Image Content - 5 cols */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -60 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1, ease: "easeOut" }}
+                            className="lg:col-span-5 relative order-last lg:order-first"
+                        >
+                            <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl group">
                                 <Image
-                                    src="/Siddhaka_ayurveda_Logo.png"
-                                    alt="Siddhaka Ayurveda Logo"
-                                    width={450}
-                                    height={150}
-                                    className="h-32 md:h-48 w-auto drop-shadow-sm"
+                                    src="/006.JPG"
+                                    alt="Siddhaka Ayurveda Wellness Center"
+                                    fill
+                                    className="object-cover transition-transform duration-[2000ms] group-hover:scale-110"
+                                    priority
                                 />
+                                {/* Bottom gradient for text readability if needed */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent opacity-80" />
+
+                                {/* Inner glow / border */}
+                                <div className="absolute inset-0 border-[12px] border-white/10 rounded-[2.5rem]" />
                             </div>
 
-                            {/* Main Heading */}
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
-                                Welcome to <span className="text-primary">Siddhaka Ayurveda</span>
-                            </h2>
+                            {/* Floating Stats / Info Element */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.6, duration: 0.8 }}
+                                className="absolute -bottom-6 -right-6 lg:-right-10 bg-background/90 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-border/50 hidden md:block"
+                            >
+                                <div className="space-y-1">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                                        <p className="text-[10px] font-bold text-primary uppercase tracking-tighter">Authentic Excellence</p>
+                                    </div>
+                                    <p className="text-xl font-black text-foreground">Traditional Care</p>
+                                    <p className="text-xs text-muted-foreground">Modern Comfort & Healing</p>
+                                </div>
+                            </motion.div>
 
-                            {/* Tagline */}
-                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 rounded-full mb-6">
-                                <p className="text-sm sm:text-base text-primary font-bold italic tracking-wide">
-                                    "Reconnect. Rejuvenate. Restore your natural balance."
-                                </p>
-                            </div>
+                            {/* Decorative element */}
+                            <div className="absolute -z-10 -top-10 -left-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl" />
+                        </motion.div>
 
-                            {/* Body Text */}
-                            <div className="space-y-4 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl font-medium mx-auto">
-                                <p>
-                                    Siddhaka Ayurveda is a serene haven for holistic healing nestled in the peaceful surroundings of
-                                    Thissamaharama. Guided by <span className="text-foreground font-semibold">Dr. Nimeshika Madithiyawala</span>, we provide authentic Ayurvedic treatments designed
-                                    to help you reconnect and rejuvenate your mind, body, and soul.
-                                </p>
-                                <p>
-                                    At Siddhaka Ayurveda, wellness is a journey, and we are here to guide you every step of the way with treatments rooted in ancient wisdom and personalized for your unique needs.
-                                </p>
-                            </div>
+                        {/* Text Content - 7 cols */}
+                        <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8 }}
+                            >
+                                {/* Premium Badge */}
+                                <div className="inline-flex items-center gap-2 px-5 py-2 bg-primary/10 border border-primary/20 rounded-full mb-8">
+                                    <Sparkles className="w-4 h-4 text-primary" />
+                                    <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Discover Ancient Wisdom</span>
+                                </div>
+
+                                {/* Logo Integration - More refined */}
+                                <div className="mb-8 opacity-90">
+                                    <Image
+                                        src="/Siddhaka_ayurveda_Logo.png"
+                                        alt="Siddhaka Ayurveda"
+                                        width={280}
+                                        height={80}
+                                        className="h-16 md:h-20 w-auto"
+                                    />
+                                </div>
+
+                                <h2 className="text-4xl md:text-5xl lg:text-7xl font-light text-foreground mb-8 leading-[1.05] tracking-tight">
+                                    Welcome to <br />
+                                    <span className="text-primary font-bold">Siddhaka Ayurveda</span>
+                                </h2>
+
+                                <div className="relative pl-0 lg:pl-12 space-y-8 max-w-2xl">
+                                    {/* Vertical accent line */}
+                                    <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-primary/20 to-transparent hidden lg:block" />
+
+                                    <div className="space-y-2">
+                                        <p className="text-lg md:text-xl text-primary font-bold italic leading-relaxed">
+                                            &ldquo;Reconnect. Rejuvenate. Restore your natural balance.&rdquo;
+                                        </p>
+                                        <div className="w-12 h-1 bg-primary/20 rounded-full lg:hidden mx-auto" />
+                                    </div>
+
+                                    <div className="space-y-6 text-base md:text-lg text-muted-foreground leading-relaxed font-medium">
+                                        <p>
+                                            Siddhaka Ayurveda is a serene haven for holistic healing nestled in the peaceful surroundings of
+                                            Thissamaharama. Guided by <span className="text-foreground font-bold border-b-2 border-primary/20 pb-0.5">Dr. Nimeshika Madithiyawala</span>, we provide authentic Ayurvedic treatments designed
+                                            to help you reconnect and rejuvenate your mind, body, and soul.
+                                        </p>
+                                        <p>
+                                            At Siddhaka Ayurveda, wellness is a journey, and we are here to guide you every step of the way with treatments rooted in ancient wisdom and personalized for your unique needs.
+                                        </p>
+                                    </div>
+
+                                    {/* Action links */}
+                                    <div className="pt-6 flex flex-wrap justify-center lg:justify-start gap-8">
+                                        <Link
+                                            href="/ayurveda"
+                                            className="group flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-foreground hover:text-primary transition-colors"
+                                        >
+                                            <span>Philosophy</span>
+                                            <div className="w-8 h-8 rounded-full border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary group-hover:text-white transition-all transform group-hover:translate-x-1">
+                                                <ChevronRight size={14} />
+                                            </div>
+                                        </Link>
+                                        <Link
+                                            href="/treatments"
+                                            className="group flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-foreground hover:text-primary transition-colors"
+                                        >
+                                            <span>Treatments</span>
+                                            <div className="w-8 h-8 rounded-full border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary group-hover:text-white transition-all transform group-hover:translate-x-1">
+                                                <ChevronRight size={14} />
+                                            </div>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </motion.div>
                         </div>
                     </div>
                 </div>
