@@ -1,59 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import { Clock, Check } from "lucide-react"
+import { Sparkles } from "lucide-react"
 import { BookingModal } from "@/components/booking-modal"
 import { WellnessPackageCard } from "@/components/wellness-package-card"
+import { SignatureCard } from "@/components/signature-card"
 import { TreatmentTabs } from "@/components/treatment-tabs"
-import { useAuth, ServicePackage } from "@/components/auth-context"
-
-function SignatureCard({ pkg }: { pkg: any }) {
-  const [isBookingOpen, setIsBookingOpen] = useState(false)
-
-  return (
-    <div className="rounded-lg border border-primary bg-gradient-to-br from-primary/10 to-secondary/10 shadow-md overflow-hidden">
-      {pkg.image && (
-        <div className="w-full h-40 overflow-hidden">
-          <img src={pkg.image || "/placeholder.svg"} alt={pkg.name} className="w-full h-full object-cover" />
-        </div>
-      )}
-      <div className="p-5">
-        <h3 className="text-lg font-bold text-foreground mb-1">{pkg.name}</h3>
-        {/* <div className="flex items-center gap-2 mb-3 text-primary font-medium text-sm">
-          <Clock size={14} />
-          <span>{pkg.duration} minutes</span>
-        </div> */}
-        {pkg.focus && <p className="text-sm font-semibold text-primary mb-3">Focus: {pkg.focus}</p>}
-        <p className="text-xs font-semibold text-foreground mb-2 uppercase">Includes:</p>
-        <ul className="space-y-1 mb-3">
-          {pkg.includes.map((item: string, idx: number) => (
-            <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
-              <Check size={12} className="text-primary flex-shrink-0 mt-0.5" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-        {pkg.benefits && (
-          <p className="text-xs text-muted-foreground italic border-t border-primary/20 pt-2">
-            Benefits: {pkg.benefits}
-          </p>
-        )}
-        <button
-          onClick={() => setIsBookingOpen(true)}
-          className="w-full mt-3 py-2 bg-primary text-primary-foreground rounded font-semibold text-sm hover:opacity-90 transition-opacity"
-        >
-          Book Package
-        </button>
-        <BookingModal
-          isOpen={isBookingOpen}
-          onClose={() => setIsBookingOpen(false)}
-          packageName={pkg.name}
-          packageId={pkg._id || pkg.id}
-        />
-      </div>
-    </div>
-  )
-}
+import { useAuth } from "@/components/auth-context"
+import { motion } from "framer-motion"
+import Image from "next/image"
 
 export default function PackagesPage() {
   const { packages } = useAuth()
@@ -64,28 +19,55 @@ export default function PackagesPage() {
   const signaturePackages = packages.filter(p => p.category === "signature")
 
   const categories = [
-    { label: "Head & Hair Care", sub: "head-hair" },
-    { label: "Body & Skin Care", sub: "body-skin" },
+    { label: "Head & Hair", sub: "head-hair" },
+    { label: "Body & Skin", sub: "body-skin" },
     { label: "Facial Care", sub: "facial" },
     { label: "Foot Care", sub: "foot" },
   ]
 
   return (
-    <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="py-8 md:py-12 bg-gradient-to-b from-secondary/10 to-background">
-        <div className="max-w-6xl mx-auto px-3 sm:px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-3">Treatment Packages</h1>
-          <p className="text-base text-muted-foreground max-w-3xl mx-auto">
-            Discover our comprehensive range of authentic Ayurvedic treatments designed to heal, rejuvenate, and restore
-            balance.
-          </p>
+    <main className="min-h-screen bg-background">
+      {/* Premium Hero Section */}
+      <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden border-b border-border/50">
+        {/* Background Mandala */}
+        <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
+          <Image
+            src="/mandala_bg.png"
+            alt=""
+            fill
+            className="object-cover"
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-6">
+              <Sparkles size={14} className="text-primary" />
+              <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em]">Curated for Wellness</span>
+            </div>
+
+            <h1 className="text-5xl md:text-7xl font-black text-foreground mb-6 tracking-tighter">
+              Treatment <span className="text-primary">Packages</span>
+            </h1>
+
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-medium leading-relaxed">
+              Discover our comprehensive range of authentic Ayurvedic treatments designed to heal, rejuvenate, and restore balance.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      <section className="py-8 md:py-10 bg-background">
-        <div className="max-w-6xl mx-auto px-3 sm:px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Menu for Wellness</h2>
+      {/* Packages Grid Section */}
+      <section className="py-16 md:py-24 bg-background">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-12">
+            <h2 className="text-3xl md:text-5xl font-black text-foreground mb-4 tracking-tight">Our <span className="text-primary">Menu</span></h2>
+            <div className="w-20 h-1.5 bg-primary/20 rounded-full" />
+          </div>
 
           <TreatmentTabs
             tabs={[
@@ -156,19 +138,30 @@ export default function PackagesPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-8 md:py-10 bg-gradient-to-r from-primary to-secondary">
-        <div className="max-w-3xl mx-auto px-3 sm:px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-3">Start Your Wellness Journey</h2>
-          <p className="text-base text-primary-foreground/90 mb-5">
-            Contact us today to book your customized treatment package
-          </p>
-          <button
-            onClick={() => setSelectedPackageInfo({ name: "General Consultation", id: "consultation" })}
-            className="px-8 py-3 bg-primary-foreground text-primary rounded-lg hover:opacity-90 transition-opacity font-semibold"
+      {/* Global CTA */}
+      <section className="py-20 bg-primary/5 border-y border-border/50">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
           >
-            Schedule Consultation
-          </button>
+            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-8">
+              <Sparkles size={32} className="text-primary" />
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black text-foreground mb-6 tracking-tight">
+              Unsure which package <span className="text-primary">fits you?</span>
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground mb-10 font-medium max-w-2xl mx-auto">
+              Schedule a general consultation with our expert practitioners to receive a personalized wellness roadmap.
+            </p>
+            <button
+              onClick={() => setSelectedPackageInfo({ name: "General Consultation", id: "consultation" })}
+              className="inline-flex items-center gap-3 px-10 py-5 bg-primary text-white rounded-2xl hover:bg-primary/90 transition-all font-bold text-lg shadow-xl shadow-primary/25 active:scale-95"
+            >
+              Consult with Doctor
+            </button>
+          </motion.div>
         </div>
       </section>
 

@@ -1,6 +1,8 @@
 "use client"
 
-import { Clock } from "lucide-react"
+import { Clock, ArrowRight, Sparkles } from "lucide-react"
+import { motion } from "framer-motion"
+import Image from "next/image"
 
 interface Treatment {
   title: string
@@ -16,30 +18,61 @@ interface WellnessPackageCardProps {
 
 export function WellnessPackageCard({ treatment, onBookClick }: WellnessPackageCardProps) {
   return (
-    <div className="rounded-lg border border-primary bg-gradient-to-br from-primary/10 to-secondary/10 shadow-md hover:shadow-lg transition-shadow overflow-hidden flex flex-col h-full">
-      {treatment.image && (
-        <div className="w-full h-48 overflow-hidden bg-gray-200">
-          <img
-            src={treatment.image || "/placeholder.svg"}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      whileHover={{ y: -8 }}
+      transition={{ duration: 0.5 }}
+      className="group relative flex flex-col h-full bg-card rounded-[2rem] overflow-hidden border border-border/50 shadow-sm hover:shadow-2xl hover:border-primary/20 transition-all duration-500"
+    >
+      {/* Category Tag */}
+      <div className="absolute top-4 left-4 z-10">
+        <div className="px-3 py-1 bg-background/80 backdrop-blur-md border border-border/50 rounded-full shadow-sm">
+          <p className="text-[10px] font-bold text-primary uppercase tracking-widest">Wellness</p>
+        </div>
+      </div>
+
+      {/* Image Container */}
+      <div className="relative w-full aspect-[16/10] overflow-hidden bg-muted">
+        {treatment.image ? (
+          <Image
+            src={treatment.image}
             alt={treatment.title}
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover transition-transform duration-[1.5s] group-hover:scale-110"
           />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <Sparkles className="w-12 h-12 text-muted-foreground/20" />
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
+      </div>
+
+      {/* Content */}
+      <div className="p-6 md:p-8 flex flex-col flex-grow">
+        <div className="flex items-center gap-2 mb-3 text-primary">
+          <Clock size={14} className="animate-pulse" />
+          <span className="text-xs font-bold uppercase tracking-widest">{treatment.duration}</span>
         </div>
-      )}
-      <div className="p-5 flex flex-col flex-1">
-        <h3 className="text-lg font-bold text-foreground mb-2">{treatment.title}</h3>
-        <div className="flex items-center gap-2 mb-3 text-primary font-medium text-sm">
-          <Clock size={14} />
-          <span>{treatment.duration}</span>
-        </div>
-        <p className="text-sm text-muted-foreground mb-4 flex-1">{treatment.description}</p>
+
+        <h3 className="text-xl md:text-2xl font-black text-foreground mb-3 leading-tight group-hover:text-primary transition-colors">
+          {treatment.title}
+        </h3>
+
+        <p className="text-sm text-muted-foreground mb-8 leading-relaxed font-medium flex-grow">
+          {treatment.description}
+        </p>
+
         <button
           onClick={onBookClick}
-          className="w-full py-2 bg-primary text-primary-foreground rounded font-semibold text-sm hover:opacity-90 transition-opacity"
+          className="w-full flex items-center justify-center gap-2 py-4 bg-primary text-white rounded-2xl font-bold text-sm transition-all duration-300 active:scale-95 shadow-lg shadow-primary/20 hover:shadow-primary/40 group/btn"
         >
-          Book Package
+          <span>Reserve Now</span>
+          <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
         </button>
       </div>
-    </div>
+    </motion.div>
   )
 }
