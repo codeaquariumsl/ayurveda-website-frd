@@ -73,7 +73,7 @@ export default function TreatmentsPage() {
           title: "Shareera Abhyanga with Udvarthana (Powder Massage)",
           description:
             "An intensive toning and lightening therapy that combines herbal powder massage followed by a full body oil massage.",
-          image: "/Treatment/powder massage.JPG",
+          image: "/Treatment/Ayurvedic Body Scrub Treatment.JPG",
           benefits: [
             "Enhances body toning and calorie burning",
             "Improves blood circulation and lymphatic drainage",
@@ -99,7 +99,7 @@ export default function TreatmentsPage() {
           title: "Annalepa",
           description:
             "Annalepa is a rejuvenating sudation therapy using a medicated rice pudding prepared with Navara rice, milk, and Bala root decoction.",
-          image: "/Treatment/Annalepa.JPG",
+          image: "/ayurvedic-rice-milk-treatment.jpg",
           benefits: [
             "Strengthens muscles and body tissues",
             "Prevents degeneration and wasting disorders",
@@ -112,7 +112,7 @@ export default function TreatmentsPage() {
           title: "Shashtika Shali Pinda Sweda",
           description:
             "A nourishing therapy performed using warm boluses of cooked Navara rice processed in milk and herbal decoctions.",
-          image: "/Treatment/shashtika shali pinda sweda.JPG",
+          image: "/Treatment/Shashtikashli.JPG",
           benefits: [
             "Improves complexion, glow, and skin texture",
             "Strengthens muscles and bones",
@@ -136,7 +136,7 @@ export default function TreatmentsPage() {
           title: "Nadi Sweda (Steam Therapy)",
           description:
             "A localized steam therapy where medicated steam is directed through a tube to the affected area or entire body.",
-          image: "/Treatment/Nadi sweda.JPG",
+          image: "/Treatment/Nadi Sweda.JPG",
           benefits: [
             "Provides instant pain relief",
             "Reduces stiffness without oral medication",
@@ -186,7 +186,7 @@ export default function TreatmentsPage() {
           title: "Janu Vasti",
           description:
             "It is a treatment in which medicated oils are poured and pooled for a fixed duration in a compartment constructed around the knee joint using wet black gram flour.",
-          image: "/Treatment/Janu vasthi.JPG",
+          image: "/Treatment/Janu.JPG",
           benefits: [
             "Relieves knee pain and swelling",
             "Improves joint movement and flexibility",
@@ -199,7 +199,7 @@ export default function TreatmentsPage() {
           title: "Mud Therapy",
           description:
             "An ancient therapy using medicated mud applications to improve skin health and natural beauty.",
-          image: "/Treatment/Mud therapy.JPG",
+          image: "/ayurvedic-mud-therapy-mask.jpg",
           benefits: [
             "Enhances complexion and skin glow",
             "Improves blood circulation and maintains metabolism",
@@ -243,7 +243,7 @@ export default function TreatmentsPage() {
           title: "Akshi Tharpana",
           description:
             "A specialized eye therapy where medicated ghee is retained over the eyes for nourishment and strengthening. Akshi means eyes, and Tharpana means giving strength to the eyes.",
-          image: "/Treatment/Akshi tharpana.JPG",
+          image: "/Treatment/Akshi Tharpana.JPG",
           benefits: [
             "Improves vision and eye strength",
             "Reduces eye strain and dryness",
