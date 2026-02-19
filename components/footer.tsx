@@ -26,9 +26,9 @@ export default function Footer() {
               <a href="https://www.instagram.com/siddhakaayurveda/" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
                 <Instagram size={18} />
               </a>
-              <a href="https://www.linkedin.com/company/siddhaka-ayurveda/" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
+              {/* <a href="https://www.linkedin.com/company/siddhaka-ayurveda/" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
                 <Linkedin size={18} />
-              </a>
+              </a> */}
             </div>
           </div>
 

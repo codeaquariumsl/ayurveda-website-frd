@@ -188,6 +188,7 @@ export default function HeroSlider() {
         </div>
       </div>
 
+
       {/* Slide Counter */}
       <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10 text-white text-[10px] sm:text-sm font-medium bg-black/40 px-3 py-1 sm:px-4 sm:py-2 rounded-full">
         {currentSlide + 1} / {slides.length}

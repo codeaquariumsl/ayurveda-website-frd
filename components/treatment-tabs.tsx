@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Sparkles } from "lucide-react"
 
@@ -24,6 +24,23 @@ interface TabsProps {
 
 export function TreatmentTabs({ tabs, renderItem }: TabsProps) {
   const [activeTab, setActiveTab] = useState(tabs[0].id)
+
+  useEffect(() => {
+    const checkHash = () => {
+      const hash = window.location.hash.substring(1)
+      if (hash && tabs.some((tab) => tab.id === hash)) {
+        setActiveTab(hash)
+      }
+    }
+
+    // Check on initial load
+    checkHash()
+
+    // Add listener for hash changes
+    window.addEventListener("hashchange", checkHash)
+    return () => window.removeEventListener("hashchange", checkHash)
+  }, [tabs])
+
   const activeTabData = tabs.find((tab) => tab.id === activeTab)
 
   return (
@@ -32,7 +49,11 @@ export function TreatmentTabs({ tabs, renderItem }: TabsProps) {
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
+            id={tab.id}
+            onClick={() => {
+              setActiveTab(tab.id)
+              window.history.pushState(null, "", `#${tab.id}`)
+            }}
             className={`px-4 py-2 font-semibold rounded-lg transition-colors text-sm md:text-base ${activeTab === tab.id
               ? "bg-primary text-primary-foreground"
               : "bg-secondary/20 text-foreground hover:bg-secondary/30"

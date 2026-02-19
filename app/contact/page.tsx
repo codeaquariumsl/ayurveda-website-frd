@@ -217,7 +217,7 @@ export default function ContactPage() {
               },
               {
                 q: "Are the treatments suitable for all ages?",
-                a: "Ayurvedic treatments can be adapted for different ages and conditions. However, pregnant women, people with certain medical conditions, and those taking specific medications should consult with Dr. Nimeshika before treatment.",
+                a: "Yes, Ayurvedic treatments are suitable for individuals of all ages. However, we require a consultation for everyone before starting any treatment. This ensures that Dr. Nimeshika can tailor the therapy to your unique needs, which is especially important for pregnant women, children, the elderly, or those with specific medical conditions.",
               },
               {
                 q: "What should I expect after a treatment?",
@@ -225,7 +225,7 @@ export default function ContactPage() {
               },
               {
                 q: "Do you offer payment plans or packages?",
-                a: "Yes! We offer various treatment packages and special programs. Our signature packages include accommodation and daily treatments. Contact us for customized package options.",
+                a: "Yes! We offer various treatment packages and special programs. Our signature packages include daily treatments. Contact us for customized package options.",
               },
               {
                 q: "How often should I receive treatments?",

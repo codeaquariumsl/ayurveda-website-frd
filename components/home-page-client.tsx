@@ -148,7 +148,7 @@ export default function HomePageClient() {
                             </div>
 
                             {/* Floating Stats / Info Element */}
-                            <motion.div
+                            {/* <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -163,7 +163,7 @@ export default function HomePageClient() {
                                     <p className="text-xl font-black text-foreground">Traditional Care</p>
                                     <p className="text-xs text-muted-foreground">Modern Comfort & Healing</p>
                                 </div>
-                            </motion.div>
+                            </motion.div> */}
 
                             {/* Decorative element */}
                             <div className="absolute -z-10 -top-10 -left-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl" />
