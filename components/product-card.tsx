@@ -1,4 +1,5 @@
 "use client"
+import { useState } from "react"
 import { X, Sparkles, ShoppingBag, Leaf, Droplets, ArrowRight } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
@@ -6,16 +7,19 @@ import Image from "next/image"
 interface ProductCardProps {
   product: any
   onViewMore: (product: any) => void
+  priority?: boolean
 }
 
-export function ProductCard({ product, onViewMore }: ProductCardProps) {
+export function ProductCard({ product, onViewMore, priority = false }: ProductCardProps) {
+  const [isLoaded, setIsLoaded] = useState(false)
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-50px" }}
       whileHover={{ y: -8 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
       className="group relative flex flex-col h-full bg-card rounded-3xl overflow-hidden border border-border/50 shadow-sm hover:shadow-2xl hover:border-primary/20 transition-all duration-500"
     >
       {/* Category Tag */}
@@ -27,12 +31,19 @@ export function ProductCard({ product, onViewMore }: ProductCardProps) {
 
       {/* Image Container */}
       <div className="relative w-full aspect-[4/5] overflow-hidden bg-muted">
+        {/* Shimmer Placeholder */}
+        {!isLoaded && product.image && (
+          <div className="absolute inset-0 z-10 animate-pulse bg-gradient-to-r from-muted via-muted/50 to-muted bg-[length:200%_100%] shimmer" />
+        )}
+
         {product.image ? (
           <Image
             src={product.image}
             alt={product.name}
             fill
-            className="object-cover transition-transform duration-[1.5s] group-hover:scale-110"
+            priority={priority}
+            onLoad={() => setIsLoaded(true)}
+            className={`object-cover transition-all duration-[1s] group-hover:scale-110 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">

@@ -3,8 +3,9 @@ import { useState, useMemo } from "react"
 import { ProductCard, ProductDetailModal } from "@/components/product-card"
 import { useAuth, Product } from "@/components/auth-context"
 import { motion, AnimatePresence } from "framer-motion"
-import { ShoppingBag, Sparkles, Filter, Search, X } from "lucide-react"
+import { ShoppingBag, Sparkles, Filter, Search, X, Leaf } from "lucide-react"
 import Image from "next/image"
+import { LeafBackground } from "@/components/leaf-background"
 
 export default function ProductsPage() {
   const { products } = useAuth()
@@ -27,7 +28,8 @@ export default function ProductsPage() {
   }, [products, activeCategory, searchQuery])
 
   return (
-    <main className="min-h-screen bg-background pb-20">
+    <main className="min-h-screen bg-background pb-20 relative">
+      <LeafBackground />
       {/* Premium Hero Section */}
       <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
         {/* Background Mandala */}
@@ -130,6 +132,7 @@ export default function ProductsPage() {
                   key={product.id || idx}
                   product={product as any}
                   onViewMore={setSelectedProduct as any}
+                  priority={idx < 4}
                 />
               ))}
             </AnimatePresence>
@@ -185,6 +188,15 @@ export default function ProductsPage() {
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: rgba(var(--primary), 0.2);
+        }
+        @keyframes shimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+        .shimmer {
+          background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.1) 50%, transparent 75%);
+          background-size: 200% 100%;
+          animation: shimmer 1.5s infinite;
         }
       `}</style>
     </main>
