@@ -297,10 +297,10 @@ export default function AdminPage() {
                           <td className="px-6 py-4">
                             <span
                               className={`inline-flex px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-tighter ${booking.status === "confirmed" ? "bg-green-100 text-green-700 border border-green-200" :
-                                  booking.status === "pending" ? "bg-yellow-100 text-yellow-700 border border-yellow-200" :
-                                    booking.status === "completed" ? "bg-blue-100 text-blue-700 border border-blue-200" :
-                                      booking.status === "cancelled" ? "bg-red-100 text-red-700 border border-red-200" :
-                                        "bg-purple-100 text-purple-700 border border-purple-200"
+                                booking.status === "pending" ? "bg-yellow-100 text-yellow-700 border border-yellow-200" :
+                                  booking.status === "completed" ? "bg-blue-100 text-blue-700 border border-blue-200" :
+                                    booking.status === "cancelled" ? "bg-red-100 text-red-700 border border-red-200" :
+                                      "bg-purple-100 text-purple-700 border border-purple-200"
                                 }`}
                             >
                               {booking.status}
@@ -560,6 +560,14 @@ export default function AdminPage() {
                   <p className="text-sm">
                     <span className="font-semibold text-foreground">Phone:</span>{" "}
                     <span className="text-muted-foreground">{selectedBooking.patientDetails.phone}</span>
+                  </p>
+                  <p className="text-sm">
+                    <span className="font-semibold text-foreground">Gender:</span>{" "}
+                    <span className="text-muted-foreground capitalize">{selectedBooking.patientDetails?.gender || "N/A"}</span>
+                  </p>
+                  <p className="text-sm">
+                    <span className="font-semibold text-foreground">Country:</span>{" "}
+                    <span className="text-muted-foreground">{selectedBooking.patientDetails?.country || "N/A"}</span>
                   </p>
                   <p className="text-sm">
                     <span className="font-semibold text-foreground">Status:</span>

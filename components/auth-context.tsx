@@ -20,7 +20,7 @@ export interface Patient {
 export interface Booking {
   _id?: string
   id?: string
-  patientId: string
+  patientId?: string
   patientName: string
   packageName: string
   packageId: string
@@ -30,6 +30,7 @@ export interface Booking {
   notes?: string
   createdAt: string
   patientDetails?: {
+    name?: string
     email?: string
     phone?: string
     gender?: string
@@ -70,22 +71,12 @@ export interface ServicePackage {
 
 interface AuthContextType {
   user: any | null
-  patient: Patient | null
   bookings: Booking[]
   products: Product[]
   packages: ServicePackage[]
   isAdmin: boolean
   token: string | null
   login: (email: string, password: string) => Promise<void>
-  register: (userData: {
-    name: string
-    email: string
-    phone: string
-    password: string
-    dateOfBirth: string
-    country: string
-    gender: string
-  }) => Promise<void>
   logout: () => void
   fetchBookings: () => Promise<void>
   fetchProducts: () => Promise<void>
@@ -107,7 +98,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<any | null>(null)
-  const [patient, setPatient] = useState<Patient | null>(null)
   const [bookings, setBookings] = useState<Booking[]>([])
   const [products, setProducts] = useState<Product[]>([])
   const [packages, setPackages] = useState<ServicePackage[]>([])
@@ -125,11 +115,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setToken(savedToken)
       setUser(parsedUser)
       setIsAdmin(parsedUser.role === "admin")
-
-      // If patient, fetch profile
-      if (parsedUser.role === "patient") {
-        fetchProfile(savedToken)
-      }
     }
 
     // Always fetch products and packages
@@ -140,28 +125,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   useEffect(() => {
-    if (token) {
-      if (isAdmin) {
-        fetchBookings()
-      } else {
-        fetchMyBookings()
-      }
+    if (token && isAdmin) {
+      fetchBookings()
     }
   }, [token, isAdmin])
-
-  const fetchProfile = async (tk: string) => {
-    try {
-      const res = await fetch(`${API_URL}/auth/profile`, {
-        headers: { Authorization: `Bearer ${tk}` },
-      })
-      if (res.ok) {
-        const data = await res.json()
-        setPatient(data.patient)
-      }
-    } catch (err) {
-      console.error("Error fetching profile:", err)
-    }
-  }
 
   const fetchProducts = async () => {
     try {
@@ -202,21 +169,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  const fetchMyBookings = async () => {
-    if (!token) return
-    try {
-      const res = await fetch(`${API_URL}/bookings/mybookings`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      if (res.ok) {
-        const data = await res.json()
-        setBookings(data)
-      }
-    } catch (err) {
-      console.error("Error fetching my bookings:", err)
-    }
-  }
-
   const login = async (email: string, password: string) => {
     const res = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
@@ -234,43 +186,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsAdmin(data.role === "admin")
     localStorage.setItem("siddhaka_token", data.token)
     localStorage.setItem("siddhaka_user", JSON.stringify(data))
-
-    if (data.role === "patient") {
-      fetchProfile(data.token)
-    }
-  }
-
-  const register = async (userData: {
-    name: string
-    email: string
-    phone: string
-    password: string
-    dateOfBirth: string
-    country: string
-    gender: string
-  }) => {
-    const res = await fetch(`${API_URL}/auth/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userData),
-    })
-
-    const data = await res.json()
-    if (!res.ok) {
-      throw new Error(data.message || "Registration failed")
-    }
-
-    setToken(data.token)
-    setUser(data)
-    localStorage.setItem("siddhaka_token", data.token)
-    localStorage.setItem("siddhaka_user", JSON.stringify(data))
-    fetchProfile(data.token)
   }
 
   const logout = () => {
     setToken(null)
     setUser(null)
-    setPatient(null)
     setBookings([])
     localStorage.clear()
     sessionStorage.clear()
@@ -278,18 +198,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const addBooking = async (bookingData: any) => {
-    if (!token) return
+    const headers: any = {
+      "Content-Type": "application/json",
+    }
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`
+    }
+
     const res = await fetch(`${API_URL}/bookings`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+      headers,
       body: JSON.stringify(bookingData),
     })
 
     if (res.ok) {
-      isAdmin ? fetchBookings() : fetchMyBookings()
+      if (isAdmin) fetchBookings()
     } else {
       const error = await res.json()
       throw new Error(error.message || "Failed to add booking")
@@ -297,7 +220,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const updateBooking = async (id: string, updates: Partial<Booking>) => {
-    if (!token) return
+    if (!token || !isAdmin) return
     const res = await fetch(`${API_URL}/bookings/${id}`, {
       method: "PUT",
       headers: {
@@ -308,7 +231,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     })
 
     if (res.ok) {
-      isAdmin ? fetchBookings() : fetchMyBookings()
+      fetchBookings()
     }
   }
 
@@ -409,14 +332,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     <AuthContext.Provider
       value={{
         user,
-        patient,
         bookings,
         products,
         packages,
         isAdmin,
         token,
         login,
-        register,
         logout,
         fetchBookings,
         fetchProducts,

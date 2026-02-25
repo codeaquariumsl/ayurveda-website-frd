@@ -10,7 +10,7 @@ import { BookingModal } from "./booking-modal"
 import { motion, AnimatePresence } from "framer-motion"
 
 export default function Navbar() {
-  const { patient, isAdmin, logout } = useAuth()
+  const { isAdmin, logout } = useAuth()
   const router = useRouter()
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
@@ -36,12 +36,9 @@ export default function Navbar() {
       if (isAdmin) {
         setIsAuthOpen(false)
         router.push("/admin")
-      } else if (patient) {
-        setIsAuthOpen(false)
-        router.push("/patient-dashboard")
       }
     }
-  }, [isAdmin, patient, isAuthOpen, router])
+  }, [isAdmin, isAuthOpen, router])
 
   const navItems = [
     { label: "Home", href: "/" },
@@ -117,35 +114,25 @@ export default function Navbar() {
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-4">
 
-              {!isAdmin && !patient ? (
+              {!isAdmin ? (
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setIsAuthOpen(true)}
                   className="relative flex items-center gap-2 px-6 py-2.5 bg-primary text-primary-foreground rounded-full shadow-lg hover:shadow-primary/40 transition-all font-bold text-sm tracking-wide overflow-hidden group/btn"
                 >
-                  {/* Subtle shine effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/btn:animate-shine pointer-events-none" />
-                  <User size={16} />
-                  Sign In / Book
+                  <Sparkles size={16} />
+                  Book Now
                 </motion.button>
               ) : (
                 <div className="flex items-center gap-2">
-                  {isAdmin ? (
-                    <Link
-                      href="/admin"
-                      className="flex items-center gap-2 px-6 py-2.5 bg-primary text-primary-foreground rounded-full shadow-md hover:shadow-primary/20 transition-all font-bold text-sm"
-                    >
-                      Admin Dashboard
-                    </Link>
-                  ) : (
-                    <Link
-                      href="/patient-dashboard"
-                      className="flex items-center gap-2 px-6 py-2.5 bg-primary text-primary-foreground rounded-full shadow-md hover:shadow-primary/20 transition-all font-bold text-sm"
-                    >
-                      My Dashboard
-                    </Link>
-                  )}
+                  <Link
+                    href="/admin"
+                    className="flex items-center gap-2 px-6 py-2.5 bg-primary text-primary-foreground rounded-full shadow-md hover:shadow-primary/20 transition-all font-bold text-sm"
+                  >
+                    Admin Dashboard
+                  </Link>
                   <button
                     onClick={() => logout()}
                     className="p-2.5 bg-secondary text-secondary-foreground rounded-full hover:bg-secondary/80 transition-colors shadow-sm"
@@ -158,13 +145,13 @@ export default function Navbar() {
 
             {/* Mobile UI Buttons */}
             <div className="flex md:hidden items-center gap-4">
-              {!isAdmin && !patient && (
+              {!isAdmin && (
                 <button
                   onClick={() => setIsAuthOpen(true)}
                   className={`p-2 rounded-full transition-colors ${isScrolled ? "text-primary hover:bg-primary/10" : "text-white drop-shadow-md hover:bg-white/10"
                     }`}
                 >
-                  <User size={24} />
+                  <Sparkles size={24} />
                 </button>
               )}
               <button
@@ -238,14 +225,14 @@ export default function Navbar() {
                 </div>
 
                 <div className="p-6 border-t border-border bg-secondary/10 flex flex-col gap-3">
-                  {isAdmin || patient ? (
+                  {isAdmin ? (
                     <div className="flex flex-col gap-3">
                       <Link
-                        href={isAdmin ? "/admin" : "/patient-dashboard"}
+                        href="/admin"
                         className="w-full flex items-center justify-center gap-2 py-4 bg-primary text-primary-foreground rounded-2xl font-bold shadow-lg"
                       >
                         <User size={18} />
-                        View Dashboard
+                        Admin Dashboard
                       </Link>
                       <button
                         onClick={() => logout()}
@@ -277,7 +264,7 @@ export default function Navbar() {
         <BookingModal
           isOpen={isAuthOpen}
           onClose={() => setIsAuthOpen(false)}
-          packageName="Siddhaka Ayurveda"
+          packageName=""
         />
 
         <style jsx global>{`
