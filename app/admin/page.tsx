@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useAuth } from "@/components/auth-context"
 import { Eye, EyeOff, LogOut, X, Calendar } from "lucide-react"
 import { ProductManagement } from "@/components/product-management"
@@ -10,7 +10,7 @@ import { PackageManagement } from "@/components/package-management"
 import { useToast } from "@/hooks/use-toast"
 
 export default function AdminPage() {
-  const { isAdmin, logout, bookings, updateBooking, login } = useAuth()
+  const { isAdmin, logout, bookings, updateBooking, login, fetchBookings } = useAuth()
   const { toast } = useToast()
   const [adminEmail, setAdminEmail] = useState("")
   const [adminPassword, setAdminPassword] = useState("")
@@ -20,6 +20,18 @@ export default function AdminPage() {
   const [showRescheduleModal, setShowRescheduleModal] = useState(false)
   const [rescheduleData, setRescheduleData] = useState({ date: "", timeSlot: "" })
   const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().split("T")[0])
+
+  // Auto-reload bookings every 5 minutes (5 * 60 * 1000 ms)
+  useEffect(() => {
+    if (isAdmin) {
+      const intervalId = setInterval(() => {
+        console.log("Auto-reloading bookings...");
+        fetchBookings();
+      }, 5 * 60 * 1000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [isAdmin, fetchBookings])
 
   const [bookingFilter, setBookingFilter] = useState({
     status: "all",
