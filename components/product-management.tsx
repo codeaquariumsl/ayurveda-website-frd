@@ -7,7 +7,7 @@ import { Trash2, Edit2, Plus, X } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 
 export function ProductManagement() {
-  const { products, addProduct, updateProduct, deleteProduct } = useAuth()
+  const { products, addProduct, updateProduct, deleteProduct, uploadImage } = useAuth()
   const { toast } = useToast()
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -203,13 +203,39 @@ export function ProductManagement() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-foreground mb-2">Image URL</label>
+                  <label className="block text-sm font-semibold text-foreground mb-2">Product Image</label>
+                  <div className="flex gap-4 items-center mb-2">
+                    <div className="flex-1">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={async (e) => {
+                          const file = e.target.files?.[0]
+                          if (file) {
+                            try {
+                              const url = await uploadImage(file, "product")
+                              setFormData({ ...formData, image: url })
+                              toast({ title: "Success", description: "Image uploaded successfully." })
+                            } catch (err) {
+                              toast({ title: "Error", description: "Image upload failed.", variant: "destructive" })
+                            }
+                          }
+                        }}
+                        className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-sm cursor-pointer file:cursor-pointer file:border-0 file:bg-primary/10 file:text-primary file:font-semibold file:px-4 file:py-1.5 file:rounded-md file:mr-4 hover:file:bg-primary/20 transition-all"
+                      />
+                    </div>
+                    {formData.image && (
+                      <div className="w-16 h-16 rounded-md border border-border overflow-hidden flex-shrink-0 bg-muted">
+                        <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
+                      </div>
+                    )}
+                  </div>
                   <input
                     type="text"
                     value={formData.image}
                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background"
-                    placeholder="/products/item.jpg"
+                    className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-sm"
+                    placeholder="/uploads/product/item.jpg or enter external URL"
                   />
                 </div>
 

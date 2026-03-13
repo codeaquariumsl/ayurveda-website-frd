@@ -296,5 +296,5 @@ export default function TreatmentsPage() {
     },
   ]
 
-  return <TreatmentsContent mainTabs={mainTabs} />
+  return <TreatmentsContent fallbackTabs={mainTabs} />
 }

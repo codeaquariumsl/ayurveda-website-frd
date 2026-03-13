@@ -19,8 +19,8 @@ export default function PackagesPage() {
   const signaturePackages = packages.filter(p => p.category === "signature")
 
   const categories = [
-    { label: "Head & Hair", sub: "head-hair" },
-    { label: "Body & Skin", sub: "body-skin" },
+    { label: "Head & Hair Care", sub: "head-hair" },
+    { label: "Body & Skin Care", sub: "body-skin" },
     { label: "Facial Care", sub: "facial" },
     { label: "Foot Care", sub: "foot" },
   ]

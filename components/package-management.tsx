@@ -12,7 +12,7 @@ interface PackageManagementProps {
 }
 
 export function PackageManagement({ filterCategory, title = "Manage Packages" }: PackageManagementProps) {
-  const { packages, addPackage, updatePackage, deletePackage } = useAuth()
+  const { packages, addPackage, updatePackage, deletePackage, uploadImage } = useAuth()
   const { toast } = useToast()
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -248,13 +248,39 @@ export function PackageManagement({ filterCategory, title = "Manage Packages" }:
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold mb-1.5">Image URL</label>
+                      <label className="block text-sm font-semibold mb-1.5">Package Image</label>
+                      <div className="flex gap-4 items-center mb-2">
+                        <div className="flex-1">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={async (e) => {
+                              const file = e.target.files?.[0]
+                              if (file) {
+                                try {
+                                  const url = await uploadImage(file, "package")
+                                  setFormData({ ...formData, image: url })
+                                  toast({ title: "Success", description: "Image uploaded successfully." })
+                                } catch (err) {
+                                  toast({ title: "Error", description: "Image upload failed.", variant: "destructive" })
+                                }
+                              }
+                            }}
+                            className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-sm cursor-pointer file:cursor-pointer file:border-0 file:bg-primary/10 file:text-primary file:font-semibold file:px-4 file:py-1.5 file:rounded-md file:mr-4 hover:file:bg-primary/20 transition-all"
+                          />
+                        </div>
+                        {formData.image && (
+                          <div className="w-16 h-16 rounded-md border border-border overflow-hidden flex-shrink-0 bg-muted">
+                            <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                      </div>
                       <input
                         type="text"
                         value={formData.image}
                         onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-foreground bg-background transition-shadow"
-                        placeholder="/images/example.jpg"
+                        className="w-full px-4 py-2.5 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-foreground bg-background transition-shadow text-sm"
+                        placeholder="/uploads/package/example.jpg or enter external URL"
                       />
                     </div>
                   </div>

@@ -7,6 +7,7 @@ import { useAuth } from "@/components/auth-context"
 import { Eye, EyeOff, LogOut, X, Calendar } from "lucide-react"
 import { ProductManagement } from "@/components/product-management"
 import { PackageManagement } from "@/components/package-management"
+import { TreatmentManagement } from "@/components/treatment-management"
 import { useToast } from "@/hooks/use-toast"
 
 export default function AdminPage() {
@@ -532,11 +533,12 @@ export default function AdminPage() {
         {activeTab === "products" && <ProductManagement />}
 
         {/* Treatments Section (Wellness Packages) */}
-        {activeTab === "treatments" && <PackageManagement filterCategory="wellness" title="Manage Treatments (Wellness Procedure)" />}
+        {activeTab === "treatments" && <TreatmentManagement />}
 
         {/* Packages Section (Special/Signature Packages) */}
         {activeTab === "packages" && (
           <div className="space-y-12">
+            <PackageManagement filterCategory="wellness" title="Manage Wellness Packages" />
             <PackageManagement filterCategory="special" title="Manage Special Packages" />
             <div className="pt-8 border-t border-border">
               <PackageManagement filterCategory="signature" title="Manage Signature Packages" />

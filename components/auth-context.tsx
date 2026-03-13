@@ -3,7 +3,7 @@
 import type React from "react"
 import { createContext, useContext, useState, useEffect } from "react"
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
 
 export interface Patient {
   _id?: string
@@ -69,11 +69,23 @@ export interface ServicePackage {
   createdAt: string
 }
 
+export interface Treatment {
+  _id?: string
+  id?: string
+  title: string
+  category: "head-care" | "body-care" | "facial-care" | "foot-care"
+  description: string
+  image: string
+  benefits: string[]
+  createdAt?: string
+}
+
 interface AuthContextType {
   user: any | null
   bookings: Booking[]
   products: Product[]
   packages: ServicePackage[]
+  treatments: Treatment[]
   isAdmin: boolean
   token: string | null
   login: (email: string, password: string) => Promise<void>
@@ -81,6 +93,7 @@ interface AuthContextType {
   fetchBookings: () => Promise<void>
   fetchProducts: () => Promise<void>
   fetchPackages: () => Promise<void>
+  fetchTreatments: () => Promise<void>
   addBooking: (bookingData: any) => Promise<void>
   updateBooking: (id: string, updates: Partial<Booking>) => Promise<void>
   cancelBooking: (id: string) => Promise<void>
@@ -90,8 +103,12 @@ interface AuthContextType {
   addPackage: (pkg: Omit<ServicePackage, "id" | "createdAt" | "_id">) => Promise<void>
   updatePackage: (id: string, updates: Partial<ServicePackage>) => Promise<void>
   deletePackage: (id: string) => Promise<void>
+  addTreatment: (treatment: Omit<Treatment, "id" | "createdAt" | "_id">) => Promise<void>
+  updateTreatment: (id: string, updates: Partial<Treatment>) => Promise<void>
+  deleteTreatment: (id: string) => Promise<void>
   getAvailableTimeSlots: (packageId: string, date: string) => Promise<string[]>
   adminLogout: () => void
+  uploadImage: (file: File, type: "product" | "package" | "treatment") => Promise<string>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -101,6 +118,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [bookings, setBookings] = useState<Booking[]>([])
   const [products, setProducts] = useState<Product[]>([])
   const [packages, setPackages] = useState<ServicePackage[]>([])
+  const [treatments, setTreatments] = useState<Treatment[]>([])
   const [token, setToken] = useState<string | null>(null)
   const [isAdmin, setIsAdmin] = useState(false)
   const [loaded, setLoaded] = useState(false)
@@ -117,9 +135,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setIsAdmin(parsedUser.role === "admin")
     }
 
-    // Always fetch products and packages
+    // Always fetch products, packages, treatments
     fetchProducts()
     fetchPackages()
+    fetchTreatments()
 
     setLoaded(true)
   }, [])
@@ -151,6 +170,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     } catch (err) {
       console.error("Error fetching packages:", err)
+    }
+  }
+
+  const fetchTreatments = async () => {
+    try {
+      const res = await fetch(`${API_URL}/treatments`)
+      if (res.ok) {
+        const data = await res.json()
+        setTreatments(data)
+      }
+    } catch (err) {
+      console.error("Error fetching treatments:", err)
     }
   }
 
@@ -309,6 +340,41 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (res.ok) fetchPackages()
   }
 
+  const addTreatment = async (treatment: Omit<Treatment, "id" | "createdAt" | "_id">) => {
+    if (!token || !isAdmin) return
+    const res = await fetch(`${API_URL}/treatments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(treatment),
+    })
+    if (res.ok) fetchTreatments()
+  }
+
+  const updateTreatment = async (id: string, updates: Partial<Treatment>) => {
+    if (!token || !isAdmin) return
+    const res = await fetch(`${API_URL}/treatments/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updates),
+    })
+    if (res.ok) fetchTreatments()
+  }
+
+  const deleteTreatment = async (id: string) => {
+    if (!token || !isAdmin) return
+    const res = await fetch(`${API_URL}/treatments/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (res.ok) fetchTreatments()
+  }
+
   const getAvailableTimeSlots = async (packageId: string, date: string): Promise<string[]> => {
     try {
       const res = await fetch(`${API_URL}/bookings/available-slots?packageId=${packageId}&date=${date}`)
@@ -326,6 +392,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     logout()
   }
 
+  const uploadImage = async (file: File, type: "product" | "package" | "treatment"): Promise<string> => {
+    const formData = new FormData()
+    formData.append("image", file)
+
+    const res = await fetch(`${API_URL}/upload/${type}`, {
+      method: "POST",
+      body: formData,
+    })
+
+    if (!res.ok) {
+      throw new Error("Failed to upload image")
+    }
+
+    const data = await res.json()
+    return data.url
+  }
+
   if (!loaded) return null
 
   return (
@@ -335,6 +418,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         bookings,
         products,
         packages,
+        treatments,
         isAdmin,
         token,
         login,
@@ -342,6 +426,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         fetchBookings,
         fetchProducts,
         fetchPackages,
+        fetchTreatments,
         addBooking,
         updateBooking,
         cancelBooking,
@@ -351,8 +436,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         addPackage,
         updatePackage,
         deletePackage,
+        addTreatment,
+        updateTreatment,
+        deleteTreatment,
         getAvailableTimeSlots,
         adminLogout,
+        uploadImage,
       }}
     >
       {children}

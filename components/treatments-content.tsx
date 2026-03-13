@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { TreatmentTabs } from "@/components/treatment-tabs"
+import { useAuth } from "@/components/auth-context"
 
 interface Treatment {
     title: string
@@ -16,7 +17,35 @@ interface Tab {
     treatments: Treatment[]
 }
 
-export function TreatmentsContent({ mainTabs }: { mainTabs: Tab[] }) {
+export function TreatmentsContent({ fallbackTabs }: { fallbackTabs?: Tab[] }) {
+    const { treatments } = useAuth()
+    
+    // Construct dynamic tabs from backend if treatments exist
+    const dynamicTabs: Tab[] = [
+        { id: "head-care", name: "Head and Hair Care Treatments", treatments: [] },
+        { id: "body-care", name: "Body and Skin Care Treatments", treatments: [] },
+        { id: "facial-care", name: "Facial Care Treatments", treatments: [] },
+        { id: "foot-care", name: "Foot Care Treatments", treatments: [] },
+    ]
+
+    if (treatments && treatments.length > 0) {
+        treatments.forEach(t => {
+            const tab = dynamicTabs.find(tab => tab.id === t.category)
+            if (tab) {
+                tab.treatments.push({
+                    title: t.title,
+                    description: t.description,
+                    image: t.image || "",
+                    benefits: t.benefits || []
+                })
+            }
+        })
+    }
+
+    // Use dynamic tabs if we have any backend data, otherwise fallback to static
+    const filteredDynamicTabs = dynamicTabs.filter(tab => tab.treatments.length > 0)
+    const tabsData = filteredDynamicTabs.length > 0 ? filteredDynamicTabs : fallbackTabs || []
+
     return (
         <main className="min-h-screen">
             <section className="py-8 md:py-12 bg-gradient-to-b from-secondary/10 to-background">
@@ -31,7 +60,7 @@ export function TreatmentsContent({ mainTabs }: { mainTabs: Tab[] }) {
 
             <section className="py-8 md:py-12 bg-background">
                 <div className="max-w-6xl mx-auto px-3 sm:px-4">
-                    {mainTabs.length > 0 && <TreatmentTabs tabs={mainTabs as any} />}
+                    {tabsData.length > 0 && <TreatmentTabs tabs={tabsData as any} />}
                 </div>
             </section>
 
