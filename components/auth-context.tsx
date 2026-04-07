@@ -66,6 +66,7 @@ export interface ServicePackage {
   focus?: string
   featured?: boolean
   concurrentServices: number
+  index?: number
   createdAt: string
 }
 

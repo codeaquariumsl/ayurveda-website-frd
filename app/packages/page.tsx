@@ -14,9 +14,10 @@ export default function PackagesPage() {
   const { packages } = useAuth()
   const [selectedPackageInfo, setSelectedPackageInfo] = useState<{ name: string, id: string } | null>(null)
 
-  const wellnessPackages = packages.filter(p => p.category === "wellness")
-  const specialPackages = packages.filter(p => p.category === "special")
-  const signaturePackages = packages.filter(p => p.category === "signature")
+  const sortedPackages = [...packages].sort((a, b) => (a.index || 0) - (b.index || 0))
+  const wellnessPackages = sortedPackages.filter(p => p.category === "wellness")
+  const specialPackages = sortedPackages.filter(p => p.category === "special")
+  const signaturePackages = sortedPackages.filter(p => p.category === "signature")
 
   const categories = [
     { label: "Head & Hair Care", sub: "head-hair" },

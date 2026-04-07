@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { useAuth, type ServicePackage } from "@/components/auth-context"
-import { Trash2, Edit2, Plus, Check, X } from "lucide-react"
+import { Trash2, Edit2, Plus, Check, X, Search } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 
 interface PackageManagementProps {
@@ -29,11 +29,13 @@ export function PackageManagement({ filterCategory, title = "Manage Packages" }:
     focus: "",
     featured: false,
     concurrentServices: 1,
+    index: 1,
   }
 
   const [formData, setFormData] = useState<Omit<ServicePackage, "id" | "createdAt" | "_id">>(initialFormState)
   const [newInclude, setNewInclude] = useState("")
   const [searchTerm, setSearchTerm] = useState("")
+  const [filterSubcategory, setFilterSubcategory] = useState<string>("all")
   const [viewingPackage, setViewingPackage] = useState<ServicePackage | null>(null)
 
   const handleAddInclude = () => {
@@ -79,6 +81,7 @@ export function PackageManagement({ filterCategory, title = "Manage Packages" }:
       featured: pkg.featured || false,
       image: pkg.image || "",
       concurrentServices: pkg.concurrentServices || 1,
+      index: pkg.index || 1,
     })
     setEditingId((pkg._id || pkg.id) as string)
     setShowForm(true)
@@ -86,9 +89,10 @@ export function PackageManagement({ filterCategory, title = "Manage Packages" }:
 
   const filteredItems = packages.filter((p) => {
     const matchesCategory = filterCategory ? p.category === filterCategory : true
+    const matchesSubcategory = filterSubcategory === "all" || p.subcategory === filterSubcategory
     const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.subcategory?.toLowerCase().includes(searchTerm.toLowerCase())
-    return matchesCategory && matchesSearch
+    return matchesCategory && matchesSubcategory && matchesSearch
   })
 
   return (
@@ -96,6 +100,20 @@ export function PackageManagement({ filterCategory, title = "Manage Packages" }:
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <h2 className="text-2xl font-bold text-foreground">{title}</h2>
         <div className="flex flex-col sm:flex-row w-full md:w-auto gap-3">
+          <select
+            value={filterSubcategory}
+            onChange={(e) => setFilterSubcategory(e.target.value)}
+            className="px-3 py-2 border border-border rounded-lg bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary h-10 min-w-[150px] font-medium"
+          >
+            <option value="all">All Sections</option>
+            <option value="head-hair">Head & Hair</option>
+            <option value="body-skin">Body & Skin</option>
+            <option value="facial">Facial</option>
+            <option value="foot">Foot</option>
+            <option value="full-day">Full Day</option>
+            <option value="half-day">Half Day</option>
+            <option value="7-day">7 Day</option>
+          </select>
           <div className="relative flex-1 sm:w-64">
             <input
               type="text"
@@ -104,7 +122,9 @@ export function PackageManagement({ filterCategory, title = "Manage Packages" }:
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-2 border border-border rounded-lg bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary h-10"
             />
-            <Plus className="absolute left-3 top-2.5 text-muted-foreground rotate-45" size={18} />
+            <div className="absolute left-3 top-2.5 text-muted-foreground">
+              <Search size={18} />
+            </div>
           </div>
           <button
             onClick={() => {
@@ -226,6 +246,32 @@ export function PackageManagement({ filterCategory, title = "Manage Packages" }:
                   </div>
 
                   <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-semibold mb-1.5 flex justify-between">
+                        Display Order (Index)
+                        <span className="text-[10px] font-normal text-muted-foreground uppercase">Unique per subcategory</span>
+                      </label>
+                      <select
+                        value={formData.index}
+                        onChange={(e) => setFormData({ ...formData, index: Number.parseInt(e.target.value) })}
+                        className="w-full px-4 py-2.5 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-foreground bg-background transition-shadow"
+                        required
+                      >
+                        {[...Array(20)].map((_, i) => {
+                          const idxValue = i + 1;
+                          const isTaken = packages.some(p =>
+                            p.category === formData.category &&
+                            p.subcategory === formData.subcategory &&
+                            p.index === idxValue &&
+                            (p._id || p.id) !== editingId
+                          );
+                          if (isTaken) return null;
+                          return <option key={idxValue} value={idxValue}>{idxValue}</option>;
+                        })}
+                      </select>
+                      <p className="text-[10px] text-muted-foreground mt-1">This sets the order in which items appear in the grid.</p>
+                    </div>
+
                     <div>
                       <label className="block text-sm font-semibold mb-1.5">Description</label>
                       <textarea
@@ -470,12 +516,12 @@ export function PackageManagement({ filterCategory, title = "Manage Packages" }:
                 <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">Package</th>
                 <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">Category/Sub</th>
                 <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">Details</th>
-                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">Status</th>
+                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">Order</th>
                 <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-muted-foreground text-right px-10">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              {filteredItems.map((pkg) => (
+              {[...filteredItems].sort((a, b) => (a.index || 0) - (b.index || 0)).map((pkg) => (
                 <tr key={pkg._id || pkg.id} className="hover:bg-secondary/5 transition-colors group">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
@@ -504,15 +550,9 @@ export function PackageManagement({ filterCategory, title = "Manage Packages" }:
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    {pkg.featured ? (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase bg-yellow-100 text-yellow-700 border border-yellow-200">
-                        <Check size={10} /> Featured
-                      </span>
-                    ) : (
-                      <span className="inline-flex px-2.5 py-1 rounded-full text-[10px] font-bold uppercase bg-gray-100 text-gray-400 border border-gray-200">
-                        Standard
-                      </span>
-                    )}
+                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary text-xs font-bold border border-primary/20">
+                      {pkg.index || 0}
+                    </span>
                   </td>
                   <td className="px-6 py-4 text-right pr-6">
                     <div className="flex items-center justify-end gap-2">

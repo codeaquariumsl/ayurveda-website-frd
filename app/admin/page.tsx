@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import { useAuth } from "@/components/auth-context"
-import { Eye, EyeOff, LogOut, X, Calendar } from "lucide-react"
+import { Eye, EyeOff, LogOut, X, Calendar, RefreshCw, ChevronLeft, ChevronRight } from "lucide-react"
 import { ProductManagement } from "@/components/product-management"
 import { PackageManagement } from "@/components/package-management"
 import { TreatmentManagement } from "@/components/treatment-management"
@@ -21,6 +21,8 @@ export default function AdminPage() {
   const [showRescheduleModal, setShowRescheduleModal] = useState(false)
   const [rescheduleData, setRescheduleData] = useState({ date: "", timeSlot: "" })
   const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().split("T")[0])
+  const [isRefreshing, setIsRefreshing] = useState(false)
+  const [currentCalendarDate, setCurrentCalendarDate] = useState(new Date())
 
   // Auto-reload bookings every 5 minutes (5 * 60 * 1000 ms)
   useEffect(() => {
@@ -33,6 +35,14 @@ export default function AdminPage() {
       return () => clearInterval(intervalId);
     }
   }, [isAdmin, fetchBookings])
+
+  const nextMonth = () => {
+    setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() + 1, 1))
+  }
+
+  const prevMonth = () => {
+    setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() - 1, 1))
+  }
 
   const [bookingFilter, setBookingFilter] = useState({
     status: "all",
@@ -258,9 +268,22 @@ export default function AdminPage() {
               </div>
               <button
                 onClick={() => setBookingFilter({ status: "all", search: "", date: "" })}
-                className="px-4 py-2 bg-secondary text-secondary-foreground rounded-lg text-sm font-medium hover:opacity-90"
+                className="px-6 py-2 bg-secondary text-secondary-foreground rounded-lg text-sm font-bold hover:bg-secondary/80 transition-colors h-10 shadow-sm"
               >
                 Reset
+              </button>
+              <button
+                onClick={async () => {
+                  setIsRefreshing(true);
+                  await fetchBookings();
+                  setTimeout(() => setIsRefreshing(false), 500);
+                  toast({ title: "Bookings Updated", description: "The list has been refreshed." });
+                }}
+                disabled={isRefreshing}
+                className="flex items-center justify-center h-10 w-10 bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-all disabled:opacity-50 shadow-sm border border-primary/20"
+                title="Refresh Bookings"
+              >
+                <RefreshCw size={20} className={isRefreshing ? "animate-spin" : ""} />
               </button>
             </div>
 
@@ -379,11 +402,36 @@ export default function AdminPage() {
                 <div className="lg:col-span-2">
                   <div className="bg-background rounded-xl p-4 border border-border shadow-inner">
                     <div className="flex justify-between items-center mb-6">
-                      <h3 className="text-xl font-bold text-foreground">
-                        {new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" })}
-                      </h3>
-                      <div className="text-sm font-medium text-muted-foreground bg-muted px-3 py-1 rounded-full">
-                        Today: {new Date().toLocaleDateString()}
+                      <div className="flex items-center gap-4">
+                        <h3 className="text-xl font-bold text-foreground">
+                          {currentCalendarDate.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+                        </h3>
+                        <div className="flex items-center gap-1">
+                          <button
+                            onClick={prevMonth}
+                            className="p-1 hover:bg-muted rounded-full transition-colors text-muted-foreground hover:text-foreground"
+                          >
+                            <ChevronLeft size={20} />
+                          </button>
+                          <button
+                            onClick={nextMonth}
+                            className="p-1 hover:bg-muted rounded-full transition-colors text-muted-foreground hover:text-foreground"
+                          >
+                            <ChevronRight size={20} />
+                          </button>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => {
+                            const now = new Date();
+                            setCurrentCalendarDate(now);
+                            setSelectedDate(now.toISOString().split("T")[0]);
+                          }}
+                          className="hidden sm:block text-sm font-medium text-muted-foreground bg-muted px-3 py-1 rounded-full cursor-pointer"
+                        >
+                          Today: {new Date().toLocaleDateString()}
+                        </button>
                       </div>
                     </div>
                     <div className="grid grid-cols-7 gap-2">
@@ -392,14 +440,14 @@ export default function AdminPage() {
                           {day}
                         </div>
                       ))}
-                      {Array.from({ length: 35 }).map((_, i) => {
+                      {Array.from({ length: 42 }).map((_, i) => {
                         const date = new Date(
-                          new Date().getFullYear(),
-                          new Date().getMonth(),
-                          i - new Date(new Date().getFullYear(), new Date().getMonth(), 1).getDay() + 1,
+                          currentCalendarDate.getFullYear(),
+                          currentCalendarDate.getMonth(),
+                          i - new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth(), 1).getDay() + 1,
                         )
                         const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`
-                        const isCurrentMonth = date.getMonth() === new Date().getMonth()
+                        const isCurrentMonth = date.getMonth() === currentCalendarDate.getMonth()
                         const bookingsOnDate = bookings.filter((b) => b.date === formattedDate)
                         const isSelected = selectedDate === formattedDate
                         const isToday = new Date().toISOString().split('T')[0] === formattedDate
