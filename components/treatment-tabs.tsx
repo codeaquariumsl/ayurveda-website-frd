@@ -19,7 +19,7 @@ interface TabsProps {
     name: string
     treatments: Treatment[]
   }[]
-  renderItem?: (treatment: Treatment) => React.ReactNode
+  renderItem?: (treatment: Treatment, idx: number) => React.ReactNode
 }
 
 const TreatmentCard = ({ treatment, idx }: { treatment: Treatment; idx: number }) => {
@@ -31,7 +31,7 @@ const TreatmentCard = ({ treatment, idx }: { treatment: Treatment; idx: number }
       initial={{ opacity: 0, scale: 0.98, y: 10 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: idx * 0.05, duration: 0.4 }}
-      className="bg-card rounded-xl border border-border hover:shadow-md transition-shadow overflow-hidden"
+      className="bg-white/40 dark:bg-black/20 backdrop-blur-md rounded-xl border border-white/40 dark:border-white/5 hover:shadow-lg hover:bg-white/70 dark:hover:bg-black/30 transition-all duration-300 overflow-hidden"
     >
       <div className="flex flex-col md:flex-row gap-0">
         <div className="md:w-56 md:min-h-56 flex-shrink-0 h-64 md:h-auto bg-muted overflow-hidden relative">
@@ -140,7 +140,7 @@ export function TreatmentTabs({ tabs, renderItem }: TabsProps) {
             <div className={`grid ${renderItem ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"} gap-6`}>
               {activeTabData.treatments.map((treatment, idx) =>
                 renderItem ? (
-                  <div key={idx}>{renderItem(treatment)}</div>
+                  <div key={idx}>{renderItem(treatment, idx)}</div>
                 ) : (
                   <TreatmentCard key={`${activeTab}-${idx}`} treatment={treatment} idx={idx} />
                 )

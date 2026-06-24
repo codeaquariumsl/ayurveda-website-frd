@@ -14,17 +14,18 @@ interface Treatment {
 interface WellnessPackageCardProps {
   treatment: Treatment
   onBookClick: () => void
+  delay?: number
 }
 
-export function WellnessPackageCard({ treatment, onBookClick }: WellnessPackageCardProps) {
+export function WellnessPackageCard({ treatment, onBookClick, delay = 0 }: WellnessPackageCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       whileHover={{ y: -8 }}
-      transition={{ duration: 0.5 }}
-      className="group relative flex flex-col h-full bg-card rounded-[2rem] overflow-hidden border border-border/50 shadow-sm hover:shadow-2xl hover:border-primary/20 transition-all duration-500"
+      transition={{ delay, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="group relative flex flex-col h-full bg-white/40 dark:bg-black/20 backdrop-blur-md rounded-[2rem] overflow-hidden border border-white/40 dark:border-white/5 shadow-sm hover:shadow-2xl hover:bg-white/80 dark:hover:bg-black/40 hover:border-primary/30 transition-all duration-500"
     >
       {/* Category Tag */}
       <div className="absolute top-4 left-4 z-10">

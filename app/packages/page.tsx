@@ -9,6 +9,7 @@ import { TreatmentTabs } from "@/components/treatment-tabs"
 import { useAuth } from "@/components/auth-context"
 import { motion } from "framer-motion"
 import Image from "next/image"
+import { AyurvedicBackground } from "@/components/ayurvedic-background"
 
 export default function PackagesPage() {
   const { packages, subcategories } = useAuth()
@@ -25,7 +26,8 @@ export default function PackagesPage() {
   }))
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-gradient-to-b from-[#fbfaf5] via-[#f5f9f0] to-[#edf3e8] dark:from-[#0c1008] dark:via-[#10150d] dark:to-[#080b06] relative overflow-hidden">
+      <AyurvedicBackground />
       {/* Premium Hero Section */}
       <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden border-b border-border/50">
         {/* Background Mandala */}
@@ -112,9 +114,9 @@ export default function PackagesPage() {
                 })),
               },
             ]}
-            renderItem={(treatment: any) => {
+            renderItem={(treatment: any, idx: number) => {
               if (treatment.type === "special" || treatment.type === "signature") {
-                return <SignatureCard pkg={treatment._original} />
+                return <SignatureCard pkg={treatment._original} delay={idx * 0.05} />
               }
               return (
                 <WellnessPackageCard
@@ -124,6 +126,7 @@ export default function PackagesPage() {
                     description: treatment.description,
                     image: treatment.image,
                   }}
+                  delay={idx * 0.05}
                   onBookClick={() =>
                     setSelectedPackageInfo({
                       name: treatment.title,

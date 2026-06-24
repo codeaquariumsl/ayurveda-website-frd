@@ -5,7 +5,7 @@ import { useAuth, Product } from "@/components/auth-context"
 import { motion, AnimatePresence } from "framer-motion"
 import { ShoppingBag, Sparkles, Filter, Search, X, Leaf } from "lucide-react"
 import Image from "next/image"
-import { LeafBackground } from "@/components/leaf-background"
+import { AyurvedicBackground } from "@/components/ayurvedic-background"
 
 export default function ProductsPage() {
   const { products } = useAuth()
@@ -28,8 +28,8 @@ export default function ProductsPage() {
   }, [products, activeCategory, searchQuery])
 
   return (
-    <main className="min-h-screen bg-background pb-20 relative">
-      <LeafBackground />
+    <main className="min-h-screen bg-gradient-to-b from-[#fbfaf5] via-[#f5f9f0] to-[#edf3e8] dark:from-[#0c1008] dark:via-[#10150d] dark:to-[#080b06] pb-20 relative overflow-hidden">
+      <AyurvedicBackground />
       {/* Premium Hero Section */}
       <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
         {/* Background Mandala */}
@@ -133,6 +133,7 @@ export default function ProductsPage() {
                   product={product as any}
                   onViewMore={setSelectedProduct as any}
                   priority={idx < 4}
+                  delay={idx * 0.06}
                 />
               ))}
             </AnimatePresence>

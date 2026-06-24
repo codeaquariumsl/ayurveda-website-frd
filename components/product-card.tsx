@@ -8,9 +8,10 @@ interface ProductCardProps {
   product: any
   onViewMore: (product: any) => void
   priority?: boolean
+  delay?: number
 }
 
-export function ProductCard({ product, onViewMore, priority = false }: ProductCardProps) {
+export function ProductCard({ product, onViewMore, priority = false, delay = 0 }: ProductCardProps) {
   const [isLoaded, setIsLoaded] = useState(false)
 
   return (
@@ -19,8 +20,8 @@ export function ProductCard({ product, onViewMore, priority = false }: ProductCa
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       whileHover={{ y: -8 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className="group relative flex flex-col h-full bg-card rounded-3xl overflow-hidden border border-border/50 shadow-sm hover:shadow-2xl hover:border-primary/20 transition-all duration-500"
+      transition={{ delay, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="group relative flex flex-col h-full bg-white/40 dark:bg-black/20 backdrop-blur-md rounded-3xl overflow-hidden border border-white/40 dark:border-white/5 shadow-sm hover:shadow-2xl hover:bg-white/80 dark:hover:bg-black/40 hover:border-primary/30 transition-all duration-500"
     >
       {/* Category Tag */}
       <div className="absolute top-4 left-4 z-10">
@@ -63,7 +64,7 @@ export function ProductCard({ product, onViewMore, priority = false }: ProductCa
 
         <button
           onClick={() => onViewMore(product)}
-          className="w-full flex items-center justify-center gap-2 py-4 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-2xl font-bold text-sm transition-all duration-300 active:scale-95 group/btn"
+          className="w-full flex items-center justify-center gap-2 py-4 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-2xl font-bold text-sm transition-all duration-300 active:scale-95 shadow-md shadow-primary/5 hover:shadow-lg hover:shadow-primary/20 group/btn"
         >
           <span>See Details</span>
           <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
@@ -97,7 +98,7 @@ export function ProductDetailModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-5xl bg-background rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col lg:flex-row max-h-[90vh] lg:max-h-[85vh]"
+            className="relative w-full max-w-5xl bg-background/80 dark:bg-black/80 backdrop-blur-xl rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col lg:flex-row max-h-[90vh] lg:max-h-[85vh] border border-white/20 dark:border-white/5"
           >
             {/* Close Button Mobile */}
             <button

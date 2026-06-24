@@ -17,9 +17,10 @@ interface SignatureCardProps {
         benefits?: string
         description?: string
     }
+    delay?: number
 }
 
-export function SignatureCard({ pkg }: SignatureCardProps) {
+export function SignatureCard({ pkg, delay = 0 }: SignatureCardProps) {
     const [isBookingOpen, setIsBookingOpen] = useState(false)
 
     return (
@@ -28,8 +29,8 @@ export function SignatureCard({ pkg }: SignatureCardProps) {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             whileHover={{ y: -8 }}
-            transition={{ duration: 0.5 }}
-            className="group relative flex flex-col h-full bg-gradient-to-br from-primary/[0.03] to-secondary/[0.03] rounded-[2.5rem] overflow-hidden border border-primary/20 shadow-xl hover:shadow-2xl transition-all duration-500"
+            transition={{ delay, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="group relative flex flex-col h-full bg-gradient-to-br from-primary/[0.03] to-secondary/[0.03] backdrop-blur-md rounded-[2.5rem] overflow-hidden border border-primary/20 shadow-xl hover:shadow-2xl hover:bg-white/60 dark:hover:bg-black/40 transition-all duration-500"
         >
             {/* Signature Badge */}
             {/* <div className="absolute top-6 left-6 z-10 flex flex-col gap-2">

@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { TreatmentTabs } from "@/components/treatment-tabs"
 import { useAuth } from "@/components/auth-context"
+import { AyurvedicBackground } from "@/components/ayurvedic-background"
 
 interface Treatment {
     title: string
@@ -47,34 +48,35 @@ export function TreatmentsContent({ fallbackTabs }: { fallbackTabs?: Tab[] }) {
     const tabsData = filteredDynamicTabs.length > 0 ? filteredDynamicTabs : fallbackTabs || []
 
     return (
-        <main className="min-h-screen">
-            <section className="py-8 md:py-12 bg-gradient-to-b from-secondary/10 to-background">
+        <main className="min-h-screen bg-gradient-to-b from-[#fbfaf5] via-[#f5f9f0] to-[#edf3e8] dark:from-[#0c1008] dark:via-[#10150d] dark:to-[#080b06] relative overflow-hidden">
+            <AyurvedicBackground />
+            <section className="py-8 md:py-16 bg-transparent relative z-10">
                 <div className="max-w-6xl mx-auto px-3 sm:px-4 text-center">
-                    <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-3 text-balance">Our Treatments</h1>
-                    <p className="text-base md:text-lg text-muted-foreground text-balance">
+                    <h1 className="text-4xl md:text-5xl font-black text-foreground mb-3 text-balance tracking-tight">Our Treatments</h1>
+                    <p className="text-base md:text-lg text-muted-foreground text-balance max-w-2xl mx-auto font-medium">
                         Discover our comprehensive range of authentic Ayurvedic treatments designed to heal, rejuvenate, and restore
                         balance to your mind, body, and soul.
                     </p>
                 </div>
             </section>
 
-            <section className="py-8 md:py-12 bg-background">
+            <section className="py-8 md:py-12 bg-transparent relative z-10">
                 <div className="max-w-6xl mx-auto px-3 sm:px-4">
                     {tabsData.length > 0 && <TreatmentTabs tabs={tabsData as any} />}
                 </div>
             </section>
 
-            <section className="py-8 md:py-12 bg-card">
+            <section className="py-12 md:py-20 bg-emerald-500/[0.02] dark:bg-emerald-500/[0.01] border-t border-border/50 relative z-10 backdrop-blur-[2px]">
                 <div className="max-w-3xl mx-auto px-3 sm:px-4 text-center">
                     <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">
                         Ready to Experience Healing?
                     </h2>
-                    <p className="text-base md:text-lg text-muted-foreground mb-6 text-balance">
+                    <p className="text-base md:text-lg text-muted-foreground mb-6 text-balance max-w-xl mx-auto">
                         Schedule your consultation with Dr. Nimeshika Madithiyawala to discover which treatment is right for you.
                     </p>
                     <Link
                         href="/packages"
-                        className="inline-block px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity font-semibold text-lg text-center"
+                        className="inline-block px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity font-semibold text-lg text-center shadow-lg shadow-primary/20"
                     >
                         Book Your Treatment
                     </Link>
