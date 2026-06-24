@@ -165,7 +165,9 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-muted-foreground">© 2025 Siddhaka Ayurveda. All rights reserved.</p>
+          <p className="text-xs text-muted-foreground">
+            © 2025 Siddhaka Ayurveda. All rights reserved. | Designed by Code Aqua IT Solutions.
+          </p>
           <div className="flex gap-6">
             <a href="/" className="text-xs text-muted-foreground hover:text-primary transition-colors">
               Privacy Policy

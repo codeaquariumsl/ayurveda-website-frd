@@ -58,7 +58,7 @@ export interface ServicePackage {
   name: string
   duration: number
   category: "wellness" | "special" | "signature"
-  subcategory?: "head-hair" | "body-skin" | "facial" | "foot" | "full-day" | "half-day" | "7-day"
+  subcategory?: string
   description: string
   includes: string[]
   benefits?: string
@@ -68,6 +68,14 @@ export interface ServicePackage {
   concurrentServices: number
   index?: number
   createdAt: string
+}
+
+export interface Subcategory {
+  _id?: string
+  id?: string
+  name: string
+  slug: string
+  createdAt?: string
 }
 
 export interface Treatment {
@@ -87,6 +95,7 @@ interface AuthContextType {
   products: Product[]
   packages: ServicePackage[]
   treatments: Treatment[]
+  subcategories: Subcategory[]
   isAdmin: boolean
   token: string | null
   login: (email: string, password: string) => Promise<void>
@@ -107,6 +116,10 @@ interface AuthContextType {
   addTreatment: (treatment: Omit<Treatment, "id" | "createdAt" | "_id">) => Promise<void>
   updateTreatment: (id: string, updates: Partial<Treatment>) => Promise<void>
   deleteTreatment: (id: string) => Promise<void>
+  fetchSubcategories: () => Promise<void>
+  addSubcategory: (subcategory: Omit<Subcategory, "id" | "createdAt" | "_id">) => Promise<void>
+  updateSubcategory: (id: string, updates: Partial<Subcategory>) => Promise<void>
+  deleteSubcategory: (id: string) => Promise<void>
   getAvailableTimeSlots: (packageId: string, date: string) => Promise<string[]>
   adminLogout: () => void
   uploadImage: (file: File, type: "product" | "package" | "treatment") => Promise<string>
@@ -120,6 +133,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [products, setProducts] = useState<Product[]>([])
   const [packages, setPackages] = useState<ServicePackage[]>([])
   const [treatments, setTreatments] = useState<Treatment[]>([])
+  const [subcategories, setSubcategories] = useState<Subcategory[]>([])
   const [token, setToken] = useState<string | null>(null)
   const [isAdmin, setIsAdmin] = useState(false)
   const [loaded, setLoaded] = useState(false)
@@ -136,10 +150,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setIsAdmin(parsedUser.role === "admin")
     }
 
-    // Always fetch products, packages, treatments
+    // Always fetch products, packages, treatments, subcategories
     fetchProducts()
     fetchPackages()
     fetchTreatments()
+    fetchSubcategories()
 
     setLoaded(true)
   }, [])
@@ -376,6 +391,59 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (res.ok) fetchTreatments()
   }
 
+  const fetchSubcategories = async () => {
+    try {
+      const res = await fetch(`${API_URL}/subcategories`)
+      if (res.ok) {
+        const data = await res.json()
+        setSubcategories(data)
+      }
+    } catch (err) {
+      console.error("Error fetching subcategories:", err)
+    }
+  }
+
+  const addSubcategory = async (subcategory: Omit<Subcategory, "id" | "createdAt" | "_id">) => {
+    if (!token || !isAdmin) return
+    const res = await fetch(`${API_URL}/subcategories`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(subcategory),
+    })
+    if (res.ok) fetchSubcategories()
+  }
+
+  const updateSubcategory = async (id: string, updates: Partial<Subcategory>) => {
+    if (!token || !isAdmin) return
+    const res = await fetch(`${API_URL}/subcategories/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updates),
+    })
+    if (res.ok) {
+      fetchSubcategories()
+      fetchPackages()
+    }
+  }
+
+  const deleteSubcategory = async (id: string) => {
+    if (!token || !isAdmin) return
+    const res = await fetch(`${API_URL}/subcategories/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (res.ok) {
+      fetchSubcategories()
+      fetchPackages()
+    }
+  }
+
   const getAvailableTimeSlots = async (packageId: string, date: string): Promise<string[]> => {
     try {
       const res = await fetch(`${API_URL}/bookings/available-slots?packageId=${packageId}&date=${date}`)
@@ -440,6 +508,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         addTreatment,
         updateTreatment,
         deleteTreatment,
+        subcategories,
+        fetchSubcategories,
+        addSubcategory,
+        updateSubcategory,
+        deleteSubcategory,
         getAvailableTimeSlots,
         adminLogout,
         uploadImage,

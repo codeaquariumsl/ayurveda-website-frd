@@ -11,7 +11,7 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 
 export default function PackagesPage() {
-  const { packages } = useAuth()
+  const { packages, subcategories } = useAuth()
   const [selectedPackageInfo, setSelectedPackageInfo] = useState<{ name: string, id: string } | null>(null)
 
   const sortedPackages = [...packages].sort((a, b) => (a.index || 0) - (b.index || 0))
@@ -19,12 +19,10 @@ export default function PackagesPage() {
   const specialPackages = sortedPackages.filter(p => p.category === "special")
   const signaturePackages = sortedPackages.filter(p => p.category === "signature")
 
-  const categories = [
-    { label: "Head & Hair Care", sub: "head-hair" },
-    { label: "Body & Skin Care", sub: "body-skin" },
-    { label: "Facial Care", sub: "facial" },
-    { label: "Foot Care", sub: "foot" },
-  ]
+  const categories = subcategories.map((sub) => ({
+    label: sub.name,
+    sub: sub.slug,
+  }))
 
   return (
     <main className="min-h-screen bg-background">

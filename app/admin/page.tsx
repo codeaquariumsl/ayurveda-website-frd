@@ -8,6 +8,7 @@ import { Eye, EyeOff, LogOut, X, Calendar, RefreshCw, ChevronLeft, ChevronRight 
 import { ProductManagement } from "@/components/product-management"
 import { PackageManagement } from "@/components/package-management"
 import { TreatmentManagement } from "@/components/treatment-management"
+import { SubcategoryManagement } from "@/components/subcategory-management"
 import { useToast } from "@/hooks/use-toast"
 
 export default function AdminPage() {
@@ -16,7 +17,7 @@ export default function AdminPage() {
   const [adminEmail, setAdminEmail] = useState("")
   const [adminPassword, setAdminPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
-  const [activeTab, setActiveTab] = useState<"bookings" | "calendar" | "products" | "packages" | "treatments">("bookings")
+  const [activeTab, setActiveTab] = useState<"bookings" | "calendar" | "products" | "packages" | "treatments" | "subcategories">("bookings")
   const [selectedBooking, setSelectedBooking] = useState<any>(null)
   const [showRescheduleModal, setShowRescheduleModal] = useState(false)
   const [rescheduleData, setRescheduleData] = useState({ date: "", timeSlot: "" })
@@ -206,7 +207,7 @@ export default function AdminPage() {
       {/* Navigation Tabs */}
       <div className="bg-card border-b border-border">
         <div className="max-w-7xl mx-auto flex">
-          {(["bookings", "calendar", "products", "treatments", "packages"] as const).map((tab) => (
+          {(["bookings", "calendar", "products", "treatments", "packages", "subcategories"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -221,6 +222,7 @@ export default function AdminPage() {
               {tab === "products" && "Manage Products"}
               {tab === "treatments" && "Manage Treatments"}
               {tab === "packages" && "Manage Packages"}
+              {tab === "subcategories" && "Manage Subcategories"}
             </button>
           ))}
         </div>
@@ -593,6 +595,9 @@ export default function AdminPage() {
             </div>
           </div>
         )}
+
+        {/* Subcategories Section */}
+        {activeTab === "subcategories" && <SubcategoryManagement />}
       </div>
 
       {/* Booking Details Modal */}

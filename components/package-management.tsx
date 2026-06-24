@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAuth, type ServicePackage } from "@/components/auth-context"
 import { Trash2, Edit2, Plus, Check, X, Search } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
@@ -12,7 +12,7 @@ interface PackageManagementProps {
 }
 
 export function PackageManagement({ filterCategory, title = "Manage Packages" }: PackageManagementProps) {
-  const { packages, addPackage, updatePackage, deletePackage, uploadImage } = useAuth()
+  const { packages, addPackage, updatePackage, deletePackage, uploadImage, subcategories } = useAuth()
   const { toast } = useToast()
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -21,7 +21,7 @@ export function PackageManagement({ filterCategory, title = "Manage Packages" }:
     name: "",
     duration: 30,
     category: filterCategory || "wellness",
-    subcategory: "head-hair",
+    subcategory: subcategories[0]?.slug || "head-hair",
     description: "",
     includes: [],
     benefits: "",
@@ -33,6 +33,17 @@ export function PackageManagement({ filterCategory, title = "Manage Packages" }:
   }
 
   const [formData, setFormData] = useState<Omit<ServicePackage, "id" | "createdAt" | "_id">>(initialFormState)
+
+  // Set default subcategory once subcategories load
+  useEffect(() => {
+    if ((!formData.subcategory || formData.subcategory === "head-hair") && subcategories.length > 0 && !editingId) {
+      setFormData(prev => ({
+        ...prev,
+        subcategory: subcategories[0].slug
+      }))
+    }
+  }, [subcategories, editingId])
+
   const [newInclude, setNewInclude] = useState("")
   const [searchTerm, setSearchTerm] = useState("")
   const [filterSubcategory, setFilterSubcategory] = useState<string>("all")
@@ -106,13 +117,11 @@ export function PackageManagement({ filterCategory, title = "Manage Packages" }:
             className="px-3 py-2 border border-border rounded-lg bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary h-10 min-w-[150px] font-medium"
           >
             <option value="all">All Sections</option>
-            <option value="head-hair">Head & Hair</option>
-            <option value="body-skin">Body & Skin</option>
-            <option value="facial">Facial</option>
-            <option value="foot">Foot</option>
-            <option value="full-day">Full Day</option>
-            <option value="half-day">Half Day</option>
-            <option value="7-day">7 Day</option>
+            {subcategories.map((sub) => (
+              <option key={sub.slug} value={sub.slug}>
+                {sub.name}
+              </option>
+            ))}
           </select>
           <div className="relative flex-1 sm:w-64">
             <input
@@ -220,16 +229,14 @@ export function PackageManagement({ filterCategory, title = "Manage Packages" }:
                       <label className="block text-sm font-semibold mb-1.5">Subcategory</label>
                       <select
                         value={formData.subcategory}
-                        onChange={(e) => setFormData({ ...formData, subcategory: e.target.value as any })}
+                        onChange={(e) => setFormData({ ...formData, subcategory: e.target.value })}
                         className="w-full px-4 py-2.5 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-foreground bg-background transition-shadow"
                       >
-                        <option value="head-hair">Head & Hair</option>
-                        <option value="body-skin">Body & Skin</option>
-                        <option value="facial">Facial</option>
-                        <option value="foot">Foot</option>
-                        <option value="full-day">Full Day</option>
-                        <option value="half-day">Half Day</option>
-                        <option value="7-day">7 Day</option>
+                        {subcategories.map((sub) => (
+                          <option key={sub.slug} value={sub.slug}>
+                            {sub.name}
+                          </option>
+                        ))}
                       </select>
                     </div>
 
@@ -251,24 +258,14 @@ export function PackageManagement({ filterCategory, title = "Manage Packages" }:
                         Display Order (Index)
                         <span className="text-[10px] font-normal text-muted-foreground uppercase">Unique per subcategory</span>
                       </label>
-                      <select
+                      <input
+                        type="number"
                         value={formData.index}
-                        onChange={(e) => setFormData({ ...formData, index: Number.parseInt(e.target.value) })}
+                        onChange={(e) => setFormData({ ...formData, index: Number.parseInt(e.target.value) || 0 })}
                         className="w-full px-4 py-2.5 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-foreground bg-background transition-shadow"
                         required
-                      >
-                        {[...Array(20)].map((_, i) => {
-                          const idxValue = i + 1;
-                          const isTaken = packages.some(p =>
-                            p.category === formData.category &&
-                            p.subcategory === formData.subcategory &&
-                            p.index === idxValue &&
-                            (p._id || p.id) !== editingId
-                          );
-                          if (isTaken) return null;
-                          return <option key={idxValue} value={idxValue}>{idxValue}</option>;
-                        })}
-                      </select>
+                        min="1"
+                      />
                       <p className="text-[10px] text-muted-foreground mt-1">This sets the order in which items appear in the grid.</p>
                     </div>
 
@@ -537,7 +534,9 @@ export function PackageManagement({ filterCategory, title = "Manage Packages" }:
                   <td className="px-6 py-4">
                     <div className="flex flex-col">
                       <span className="text-xs font-bold text-primary uppercase">{pkg.category}</span>
-                      <span className="text-[11px] text-muted-foreground capitalize">{pkg.subcategory}</span>
+                      <span className="text-[11px] text-muted-foreground capitalize">
+                        {subcategories.find(s => s.slug === pkg.subcategory)?.name || pkg.subcategory}
+                      </span>
                     </div>
                   </td>
                   <td className="px-6 py-4">
