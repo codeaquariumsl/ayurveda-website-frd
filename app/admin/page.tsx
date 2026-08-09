@@ -4,11 +4,12 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import { useAuth } from "@/components/auth-context"
-import { Eye, EyeOff, LogOut, X, Calendar, RefreshCw, ChevronLeft, ChevronRight } from "lucide-react"
+import { Eye, EyeOff, LogOut, X, Calendar, RefreshCw, ChevronLeft, ChevronRight, MessageSquare } from "lucide-react"
 import { ProductManagement } from "@/components/product-management"
 import { PackageManagement } from "@/components/package-management"
 import { TreatmentManagement } from "@/components/treatment-management"
 import { SubcategoryManagement } from "@/components/subcategory-management"
+import { NotificationManagement } from "@/components/notification-management"
 import { useToast } from "@/hooks/use-toast"
 
 export default function AdminPage() {
@@ -17,7 +18,7 @@ export default function AdminPage() {
   const [adminEmail, setAdminEmail] = useState("")
   const [adminPassword, setAdminPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
-  const [activeTab, setActiveTab] = useState<"bookings" | "calendar" | "products" | "packages" | "treatments" | "subcategories">("bookings")
+  const [activeTab, setActiveTab] = useState<"bookings" | "calendar" | "notifications" | "products" | "packages" | "treatments" | "subcategories">("bookings")
   const [selectedBooking, setSelectedBooking] = useState<any>(null)
   const [showRescheduleModal, setShowRescheduleModal] = useState(false)
   const [rescheduleData, setRescheduleData] = useState({ date: "", timeSlot: "" })
@@ -207,18 +208,20 @@ export default function AdminPage() {
       {/* Navigation Tabs */}
       <div className="bg-card border-b border-border">
         <div className="max-w-7xl mx-auto flex">
-          {(["bookings", "calendar", "products", "treatments", "packages", "subcategories"] as const).map((tab) => (
+          {(["bookings", "calendar", "notifications", "products", "treatments", "packages", "subcategories"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-6 py-3 font-semibold capitalize flex items-center gap-2 ${activeTab === tab
+              className={`px-4 py-2 text-sm font-semibold capitalize flex items-center gap-2 ${activeTab === tab
                 ? "border-b-2 border-primary text-primary"
                 : "text-muted-foreground hover:text-foreground"
                 }`}
             >
               {tab === "calendar" && <Calendar size={18} />}
+              {tab === "notifications" && <MessageSquare size={18} />}
               {tab === "bookings" && "Manage Bookings"}
               {tab === "calendar" && "Booking Calendar"}
+              {tab === "notifications" && "Notification Logs"}
               {tab === "products" && "Manage Products"}
               {tab === "treatments" && "Manage Treatments"}
               {tab === "packages" && "Manage Packages"}
@@ -595,6 +598,9 @@ export default function AdminPage() {
             </div>
           </div>
         )}
+
+        {/* Notification Audit Logs Section */}
+        {activeTab === "notifications" && <NotificationManagement />}
 
         {/* Subcategories Section */}
         {activeTab === "subcategories" && <SubcategoryManagement />}
